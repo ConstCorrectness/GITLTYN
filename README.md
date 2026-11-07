@@ -23,6 +23,30 @@ GITLTYN is an interactive research monograph and deterministic ablation suite in
 
 ---
 
+## The Fundamental Trilemma of Latent Reasoning
+
+```
+                       1. Expressive Latent Reasoning
+                          (Continuous ℝᵈ Dynamics)
+                                   /\
+                                  /  \
+                                 /    \
+                                /  ★   \   <-- GITLTYN (Resolves all 3)
+                               / GITLTYN\
+                              /__________\
+     2. Zero-Interference Auditability      3. Bounded O(1) Activation Memory
+       (Non-Contaminating Probes)             (Fixed Ring Buffer M ≤ K)
+```
+
+Test-time reasoning in language models faces a fundamental three-way trade-off between **expressivity**, **auditability**, and **memory footprint**:
+1. **Expressive Latent Reasoning**: Operating in continuous $\mathbb{R}^d$ hidden space to bypass the discrete vocabulary projection bottleneck ($W_{\text{unembed}}$) and natural language serialization overhead.
+2. **Zero-Interference Auditability**: Inspecting intermediate reasoning trajectories via auxiliary probes or logit lenses without backpropagating surface-grammar gradients into the primary thought loop ($\nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}} = 0$).
+3. **Bounded $O(1)$ Activation Memory**: Retaining recurrent states for inspection without suffering unbounded $O(K \cdot d)$ activation memory growth as recurrence depth $K$ scales.
+
+Prior approaches compromise on at least one vertex: **Coconut** (Hao et al., 2024) sacrifices auditability by creating an un-inspectable black box; **Huginn** (Geiping et al., 2025) and **Looped Transformers** (Giannou et al., 2023) retain states at the cost of unbounded $O(K \cdot d)$ memory growth; and **Compressed CoT** (TokenSkip, CCoT) remains bound to discrete tokens, continuing to pay the $W_{\text{unembed}}$ vocabulary bottleneck. **GITLTYN resolves all three simultaneously** through Continuous Latent Looping paired with a detachable, fixed-capacity `RingBufferLatentTee` ($M \le K$) and an isolated stop-gradient `SidecarProbe` ($\mathrm{sg}[z_k]$).
+
+---
+
 ## Architectural Invariants
 
 1. **Strict Stop-Gradient Tap ($\mathrm{sg}[z_{1:K}]$)**: `RingBufferLatentTee.push(z_k)` unconditionally calls `z_k.detach()` before storing snapshots in the circular buffer. Auxiliary readout heads (`SidecarProbe` $g_{\phi}$ and `LogitLens` $W_{\text{unembed}}$) never backpropagate into the continuous thought trajectory.
