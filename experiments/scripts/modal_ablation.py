@@ -62,10 +62,17 @@ if os.getenv("OPIK_WORKSPACE"):
 if os.getenv("OPIK_PROJECT_NAME"):
     env_secrets["OPIK_PROJECT_NAME"] = os.getenv("OPIK_PROJECT_NAME", "GITLTYN")
 
+# GPU configuration: prioritize A10G with automatic A100 fallback to eliminate queue wait times
+gpu_env = os.getenv("MODAL_GPU", "").strip()
+if gpu_env:
+    SELECTED_GPU = [g.strip() for g in gpu_env.split(",")] if "," in gpu_env else gpu_env
+else:
+    SELECTED_GPU = ["A10G", "A100"]
+
 
 @app.function(
     image=ablation_image,
-    gpu="L4",
+    gpu=SELECTED_GPU,
     timeout=3600,
     secrets=[modal.Secret.from_dict(env_secrets)] if env_secrets else [],
 )
@@ -289,13 +296,13 @@ def main(
     train_samples: int = 48,
     eval_samples: int = 24,
     full_eval: bool = False,
-    gpu: str = "L4",
+    gpu: str = "A10G,A100",
 ):
     """Local CLI entrypoint invoking remote Modal GPU function."""
     import json
     from scripts.export_web_artifacts import export_to_web
 
-    print(f"[Modal Local] Launching remote GITLTYN ablation on GPU ({gpu})...")
+    print(f"[Modal Local] Launching remote GITLTYN ablation on GPU ({SELECTED_GPU})...")
     result = run_gpu_ablation.remote(
         mode=mode,
         hf_model=hf_model,
