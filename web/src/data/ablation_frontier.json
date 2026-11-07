@@ -13,10 +13,10 @@
         0.5953,
         0.9076
       ],
-      "mean_tokens_emitted": 125.0,
+      "mean_tokens_emitted": 124.4,
       "latent_steps_k": 0,
-      "flops_per_problem": 218889122816.0,
-      "kv_cache_kb": 22288.0,
+      "flops_per_problem": 218152903639.04,
+      "kv_cache_kb": 22220.8,
       "is_pareto_frontier": true
     },
     {
@@ -25,16 +25,16 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.5417,
-      "accuracy_logit": 0.1672,
+      "accuracy": 0.5833,
+      "accuracy_logit": 0.3363,
       "ci_95": [
-        0.3508,
-        0.7211
+        0.3883,
+        0.7553
       ],
-      "mean_tokens_emitted": 52.7,
+      "mean_tokens_emitted": 53.6,
       "latent_steps_k": 0,
-      "flops_per_problem": 130471978127.36,
-      "kv_cache_kb": 14190.4,
+      "flops_per_problem": 131568921559.04,
+      "kv_cache_kb": 14291.2,
       "is_pareto_frontier": true
     },
     {
@@ -49,10 +49,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 53.8,
+      "mean_tokens_emitted": 54.9,
       "latent_steps_k": 0,
-      "flops_per_problem": 131812699381.76,
-      "kv_cache_kb": 14313.6,
+      "flops_per_problem": 133153559408.64,
+      "kv_cache_kb": 14436.8,
       "is_pareto_frontier": false
     },
     {
@@ -85,10 +85,10 @@
         0.0074,
         0.2025
       ],
-      "mean_tokens_emitted": 4.8,
+      "mean_tokens_emitted": 5.0,
       "latent_steps_k": 8,
-      "flops_per_problem": 79444851343.36,
-      "kv_cache_kb": 9721.6,
+      "flops_per_problem": 79687693312.0,
+      "kv_cache_kb": 9744.0,
       "is_pareto_frontier": true
     },
     {
@@ -331,16 +331,16 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "MATH",
-      "accuracy": 0.625,
-      "accuracy_logit": 0.5108,
+      "accuracy": 0.7083,
+      "accuracy_logit": 0.8871,
       "ci_95": [
-        0.4271,
-        0.7884
+        0.5083,
+        0.8508
       ],
-      "mean_tokens_emitted": 120.0,
+      "mean_tokens_emitted": 120.6,
       "latent_steps_k": 0,
-      "flops_per_problem": 196116234240.0,
-      "kv_cache_kb": 19712.0,
+      "flops_per_problem": 196850292695.04,
+      "kv_cache_kb": 19779.2,
       "is_pareto_frontier": true
     },
     {
@@ -349,16 +349,16 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "MATH",
-      "accuracy": 0.3333,
-      "accuracy_logit": -0.6933,
+      "accuracy": 0.4167,
+      "accuracy_logit": -0.3363,
       "ci_95": [
-        0.1797,
-        0.5329
+        0.2447,
+        0.6117
       ],
-      "mean_tokens_emitted": 60.1,
+      "mean_tokens_emitted": 59.4,
       "latent_steps_k": 0,
-      "flops_per_problem": 123040543600.64,
-      "kv_cache_kb": 13003.2,
+      "flops_per_problem": 122189003120.64,
+      "kv_cache_kb": 12924.8,
       "is_pareto_frontier": true
     },
     {
@@ -367,16 +367,16 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "MATH",
-      "accuracy": 0.0833,
-      "accuracy_logit": -2.3983,
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
       "ci_95": [
-        0.0231,
-        0.2584
+        0.0,
+        0.138
       ],
-      "mean_tokens_emitted": 60.8,
+      "mean_tokens_emitted": 59.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 123892140277.76,
-      "kv_cache_kb": 13081.6,
+      "flops_per_problem": 122675590799.36,
+      "kv_cache_kb": 12969.6,
       "is_pareto_frontier": false
     },
     {
@@ -391,10 +391,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 4.5,
+      "mean_tokens_emitted": 5.2,
       "latent_steps_k": 6,
-      "flops_per_problem": 60974913024.0,
-      "kv_cache_kb": 7448.0,
+      "flops_per_problem": 61822527733.76,
+      "kv_cache_kb": 7526.4,
       "is_pareto_frontier": true
     },
     {
@@ -409,10 +409,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 4.5,
+      "mean_tokens_emitted": 4.7,
       "latent_steps_k": 12,
-      "flops_per_problem": 66375015936.0,
-      "kv_cache_kb": 8120.0,
+      "flops_per_problem": 66617323458.56,
+      "kv_cache_kb": 8142.4,
       "is_pareto_frontier": false
     },
     {
@@ -421,16 +421,16 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.2917,
-      "accuracy_logit": -0.8871,
+      "accuracy": 0.1667,
+      "accuracy_logit": -1.6092,
       "ci_95": [
-        0.1492,
-        0.4917
+        0.0668,
+        0.3586
       ],
-      "mean_tokens_emitted": 4.4,
+      "mean_tokens_emitted": 4.6,
       "latent_steps_k": 20,
-      "flops_per_problem": 73460331888.64,
-      "kv_cache_kb": 9004.8,
+      "flops_per_problem": 73702820618.24,
+      "kv_cache_kb": 9027.2,
       "is_pareto_frontier": true
     },
     {
@@ -1192,162 +1192,162 @@
       "latent_steps": [
         {
           "step_k": 1,
-          "l2_norm": 123.753,
+          "l2_norm": 128.301,
           "logit_lens_top_k": [
             {
               "token": "/",
-              "prob": 0.4385
-            },
-            {
-              "token": "+",
-              "prob": 0.1332
+              "prob": 0.4131
             },
             {
               "token": "=",
-              "prob": 0.0929
+              "prob": 0.1312
+            },
+            {
+              "token": "+",
+              "prob": 0.1001
             },
             {
               "token": "*",
-              "prob": 0.0698
+              "prob": 0.0736
             },
             {
               "token": "####",
-              "prob": 0.0532
+              "prob": 0.0509
             }
           ],
           "sidecar_decoded": "[k=1] bind prompt operands -> latent register"
         },
         {
           "step_k": 2,
-          "l2_norm": 131.072,
+          "l2_norm": 129.406,
           "logit_lens_top_k": [
             {
               "token": "=",
-              "prob": 0.4901
+              "prob": 0.5416
             },
             {
               "token": "+",
-              "prob": 0.09
+              "prob": 0.0771
             },
             {
               "token": "6",
-              "prob": 0.0514
+              "prob": 0.0529
             },
             {
-              "token": "4",
-              "prob": 0.0495
+              "token": "9",
+              "prob": 0.0455
             },
             {
-              "token": "3",
-              "prob": 0.0476
+              "token": "1",
+              "prob": 0.037
             }
           ],
           "sidecar_decoded": "[k=2] op mul/div intermediate quantity"
         },
         {
           "step_k": 3,
-          "l2_norm": 87.743,
+          "l2_norm": 108.477,
           "logit_lens_top_k": [
             {
               "token": "2",
-              "prob": 0.2616
+              "prob": 0.2877
             },
             {
               "token": "3",
-              "prob": 0.1269
+              "prob": 0.1186
             },
             {
               "token": "1",
-              "prob": 0.1171
+              "prob": 0.1147
             },
             {
               "token": "4",
-              "prob": 0.1063
+              "prob": 0.1041
             },
             {
               "token": "6",
-              "prob": 0.1013
+              "prob": 0.0944
             }
           ],
           "sidecar_decoded": "[k=3] bind prompt operands -> latent register"
         },
         {
           "step_k": 4,
-          "l2_norm": 111.575,
+          "l2_norm": 121.852,
           "logit_lens_top_k": [
             {
               "token": "6",
-              "prob": 0.3243
+              "prob": 0.3735
             },
             {
               "token": "3",
-              "prob": 0.2305
+              "prob": 0.2188
             },
             {
               "token": "4",
-              "prob": 0.0904
-            },
-            {
-              "token": "2",
-              "prob": 0.0657
+              "prob": 0.0731
             },
             {
               "token": "9",
-              "prob": 0.0559
+              "prob": 0.055
+            },
+            {
+              "token": "2",
+              "prob": 0.0541
             }
           ],
           "sidecar_decoded": "[k=4] bind prompt operands -> latent register"
         },
         {
           "step_k": 5,
-          "l2_norm": 139.248,
+          "l2_norm": 148.802,
           "logit_lens_top_k": [
             {
               "token": "3",
-              "prob": 0.4937
-            },
-            {
-              "token": "4",
-              "prob": 0.0654
-            },
-            {
-              "token": "2",
-              "prob": 0.0629
+              "prob": 0.4939
             },
             {
               "token": "1",
+              "prob": 0.0712
+            },
+            {
+              "token": "2",
+              "prob": 0.0643
+            },
+            {
+              "token": "4",
               "prob": 0.0619
             },
             {
               "token": "6",
-              "prob": 0.0541
+              "prob": 0.0538
             }
           ],
           "sidecar_decoded": "[k=5] op mul/div intermediate quantity"
         },
         {
           "step_k": 6,
-          "l2_norm": 136.625,
+          "l2_norm": 134.228,
           "logit_lens_top_k": [
             {
               "token": "=",
-              "prob": 0.461
+              "prob": 0.4854
             },
             {
               "token": "+",
-              "prob": 0.1593
-            },
-            {
-              "token": "1",
-              "prob": 0.0529
+              "prob": 0.1428
             },
             {
               "token": "/",
-              "prob": 0.0496
+              "prob": 0.0503
+            },
+            {
+              "token": "1",
+              "prob": 0.0425
             },
             {
               "token": "6",
-              "prob": 0.0364
+              "prob": 0.0374
             }
           ],
           "sidecar_decoded": "[k=6] op mul/div intermediate quantity"
@@ -2699,7 +2699,7 @@
       "flops_per_token": 1200000000.0,
       "final_answer": "111",
       "baseline_accuracy": 0.7917,
-      "telegraphic_accuracy": 0.5417,
+      "telegraphic_accuracy": 0.5833,
       "tokens": [
         {
           "index": 0,
