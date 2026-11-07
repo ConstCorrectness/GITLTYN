@@ -269,3 +269,4 @@ CLAUDE.local.md
 Thumbs.db
 *.swp
 *~
+.agents
