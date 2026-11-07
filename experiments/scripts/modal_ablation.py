@@ -12,46 +12,60 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-
-# Load local .env if present (supporting OPIK_API_KEY, MODAL_TOKEN_ID, MODAL_TOKEN_SECRET)
-try:
-    from dotenv import load_dotenv
-
-    env_path = Path(__file__).resolve().parents[2] / ".env"
-    if env_path.exists():
-        load_dotenv(env_path)
-except ImportError:
-    pass
-
 import modal
 
-APP_NAME = "gitltyn-ablation"
-EXPERIMENTS_DIR = Path(__file__).resolve().parents[1]
-ROOT_DIR = EXPERIMENTS_DIR.parent
+CURR_FILE = Path(__file__).resolve()
 
+# Guard directory resolution: handle local repo workspace vs remote Modal container (/root/modal_ablation.py)
+if len(CURR_FILE.parents) >= 3:
+    EXPERIMENTS_DIR = CURR_FILE.parents[1]
+    ROOT_DIR = CURR_FILE.parents[2]
+elif len(CURR_FILE.parents) >= 2:
+    EXPERIMENTS_DIR = CURR_FILE.parents[0]
+    ROOT_DIR = CURR_FILE.parents[1]
+else:
+    EXPERIMENTS_DIR = Path("/root/gitltyn")
+    ROOT_DIR = Path("/root/gitltyn")
+
+# Load local .env only on host machine when running locally
+if modal.is_local():
+    try:
+        from dotenv import load_dotenv
+
+        env_path = ROOT_DIR / ".env"
+        if env_path.exists():
+            load_dotenv(env_path)
+    except Exception:
+        pass
+
+APP_NAME = "gitltyn-ablation"
 app = modal.App(APP_NAME)
 
 # Build CUDA-accelerated container image with all GITLTYN ablation dependencies
-ablation_image = (
-    modal.Image.debian_slim(python_version="3.11")
-    .pip_install(
-        "torch>=2.6.0",
-        "transformers>=4.51.0",
-        "tokenizers>=0.21.0",
-        "safetensors>=0.5.0",
-        "pydantic>=2.9.0",
-        "jsonschema>=4.23.0",
-        "numpy>=2.0.0",
-        "opik>=2.2.0",
-        "python-dotenv>=1.0.0",
+if modal.is_local():
+    ablation_image = (
+        modal.Image.debian_slim(python_version="3.11")
+        .pip_install(
+            "torch>=2.6.0",
+            "transformers>=4.51.0",
+            "tokenizers>=0.21.0",
+            "safetensors>=0.5.0",
+            "pydantic>=2.9.0",
+            "jsonschema>=4.23.0",
+            "numpy>=2.0.0",
+            "opik>=2.2.0",
+            "python-dotenv>=1.0.0",
+        )
+        .add_local_dir(str(EXPERIMENTS_DIR / "src"), remote_path="/root/gitltyn/src")
+        .add_local_dir(str(EXPERIMENTS_DIR / "configs"), remote_path="/root/gitltyn/configs")
+        .add_local_dir(str(ROOT_DIR / "shared"), remote_path="/root/gitltyn/shared")
+        .add_local_file(
+            str(EXPERIMENTS_DIR / "scripts" / "export_web_artifacts.py"),
+            remote_path="/root/gitltyn/scripts/export_web_artifacts.py",
+        )
     )
-    .add_local_dir(str(EXPERIMENTS_DIR / "src"), remote_path="/root/gitltyn/src")
-    .add_local_dir(str(ROOT_DIR / "shared"), remote_path="/root/gitltyn/shared")
-    .add_local_file(
-        str(EXPERIMENTS_DIR / "scripts" / "export_web_artifacts.py"),
-        remote_path="/root/gitltyn/scripts/export_web_artifacts.py",
-    )
-)
+else:
+    ablation_image = modal.Image.debian_slim(python_version="3.11")
 
 # Optional Opik secrets passed from environment to remote container
 env_secrets = {}
@@ -296,14 +310,22 @@ def main(
     train_samples: int = 48,
     eval_samples: int = 24,
     full_eval: bool = False,
-    gpu: str = "A10G,A100",
+    gpu: str = "",
 ):
     """Local CLI entrypoint invoking remote Modal GPU function."""
     import json
     from scripts.export_web_artifacts import export_to_web
 
-    print(f"[Modal Local] Launching remote GITLTYN ablation on GPU ({SELECTED_GPU})...")
-    result = run_gpu_ablation.remote(
+    fn = run_gpu_ablation
+    active_gpu = SELECTED_GPU
+    if gpu:
+        # with_options supports a single GPU name (e.g. "A10G", "A100", "L4", "T4")
+        chosen = gpu.split(",")[0].strip()
+        fn = run_gpu_ablation.with_options(gpu=chosen)
+        active_gpu = chosen
+
+    print(f"[Modal Local] Launching remote GITLTYN ablation on GPU ({active_gpu})...")
+    result = fn.remote(
         mode=mode,
         hf_model=hf_model,
         train_samples=train_samples,
