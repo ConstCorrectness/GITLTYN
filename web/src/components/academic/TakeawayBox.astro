@@ -1,0 +1,36 @@
+---
+import { REGIME_META, SIDECAR_PROBE_COLOR, type Regime } from '@/types/ablation';
+
+export interface Props {
+  title: string;
+  eyebrow?: string;
+  variant?: Regime | 'probe' | 'neutral';
+}
+
+const { title, eyebrow = 'Mechanistic Takeaway', variant = 'latent_loop' } = Astro.props;
+
+const accentColor =
+  variant === 'probe'
+    ? SIDECAR_PROBE_COLOR
+    : variant === 'neutral'
+      ? 'var(--ink-strong)'
+      : REGIME_META[variant].color;
+---
+
+<aside
+  class="theme-subtle theme-border my-7 max-w-[76ch] rounded-xl border p-5 shadow-2xs"
+>
+  <div class="theme-ink-faint flex items-center gap-2 font-mono text-[11px] font-semibold tracking-wider uppercase">
+    <span
+      class="inline-block h-2 w-2 rounded-full opacity-85"
+      style={`background-color: ${accentColor};`}
+    />
+    <span>{eyebrow}</span>
+  </div>
+  <h4 class="theme-ink-strong mt-1.5 font-sans text-base font-bold tracking-tight">
+    {title}
+  </h4>
+  <div class="theme-ink-muted mt-2 font-sans text-sm leading-relaxed [&_p]:my-1.5 [&_strong]:font-semibold">
+    <slot />
+  </div>
+</aside>

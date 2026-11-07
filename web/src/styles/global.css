@@ -1,1 +1,570 @@
 @import "tailwindcss";
+
+@layer base {
+  :root,
+  [data-theme="warm"] {
+    color-scheme: light;
+    --bg-page: #f7f3eb;
+    --bg-header: rgba(251, 248, 241, 0.94);
+    --bg-surface: #fbf8f1;
+    --bg-subtle: #f2ece0;
+    --bg-muted: #eae2d3;
+    --ink-strong: #1c1917;
+    --ink-body: #292524;
+    --ink-muted: #57534e;
+    --ink-faint: #78716c;
+    --border-subtle: #e2d9c8;
+    --border-strong: #cfc3ae;
+    --btn-active-bg: #292524;
+    --btn-active-fg: #fafaf9;
+    --btn-active-border: #292524;
+    --btn-idle-bg: #fbf8f1;
+    --btn-idle-fg: #57534e;
+    --btn-idle-hover-bg: #ebe3d3;
+    --btn-idle-hover-fg: #1c1917;
+    --slider-track: #dcd2bf;
+    --slider-accent: #292524;
+    --link-underline: #cfc3ae;
+    --link-underline-hover: #57534e;
+    --row-hover: rgba(234, 226, 211, 0.55);
+    --proposed-row: rgba(16, 185, 129, 0.045);
+
+    --regime-verbose: #64748b;
+    --regime-telegraphic: #f59e0b;
+    --regime-matched: #ef4444;
+    --regime-latent: #10b981;
+    --accent-probe: #6366f1;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+    --bg-page: #fcfcfb;
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --bg-surface: #ffffff;
+    --bg-subtle: #f8fafc;
+    --bg-muted: #f1f5f9;
+    --ink-strong: #0f172a;
+    --ink-body: #1e293b;
+    --ink-muted: #475569;
+    --ink-faint: #64748b;
+    --border-subtle: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --btn-active-bg: #1e293b;
+    --btn-active-fg: #ffffff;
+    --btn-active-border: #1e293b;
+    --btn-idle-bg: #ffffff;
+    --btn-idle-fg: #475569;
+    --btn-idle-hover-bg: #f1f5f9;
+    --btn-idle-hover-fg: #0f172a;
+    --slider-track: #e2e8f0;
+    --slider-accent: #1e293b;
+    --link-underline: #cbd5e1;
+    --link-underline-hover: #475569;
+    --row-hover: rgba(241, 245, 249, 0.75);
+    --proposed-row: rgba(16, 185, 129, 0.035);
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --bg-page: #0b1120;
+    --bg-header: rgba(15, 23, 42, 0.94);
+    --bg-surface: #111827;
+    --bg-subtle: #172033;
+    --bg-muted: #1e293b;
+    --ink-strong: #f8fafc;
+    --ink-body: #e2e8f0;
+    --ink-muted: #94a3b8;
+    --ink-faint: #64748b;
+    --border-subtle: #243247;
+    --border-strong: #334155;
+    --btn-active-bg: #e2e8f0;
+    --btn-active-fg: #0f172a;
+    --btn-active-border: #e2e8f0;
+    --btn-idle-bg: #172033;
+    --btn-idle-fg: #94a3b8;
+    --btn-idle-hover-bg: #243247;
+    --btn-idle-hover-fg: #f8fafc;
+    --slider-track: #334155;
+    --slider-accent: #e2e8f0;
+    --link-underline: #475569;
+    --link-underline-hover: #cbd5e1;
+    --row-hover: rgba(30, 41, 59, 0.65);
+    --proposed-row: rgba(16, 185, 129, 0.075);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-page);
+    color: var(--ink-body);
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--ink-body);
+    overflow-x: clip;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+}
+
+/* Reusable Semantic Theme Primitives for Layout & Interactive Figures */
+.theme-page {
+  background-color: var(--bg-page);
+  color: var(--ink-body);
+}
+
+.theme-header {
+  background-color: var(--bg-header);
+  border-color: var(--border-subtle);
+}
+
+.theme-surface {
+  background-color: var(--bg-surface);
+  border-color: var(--border-subtle);
+  color: var(--ink-body);
+}
+
+.theme-subtle {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-subtle);
+  color: var(--ink-body);
+}
+
+.theme-muted {
+  background-color: var(--bg-muted);
+  border-color: var(--border-subtle);
+  color: var(--ink-muted);
+}
+
+.theme-ink-strong {
+  color: var(--ink-strong);
+}
+
+.theme-ink-body {
+  color: var(--ink-body);
+}
+
+.theme-ink-muted {
+  color: var(--ink-muted);
+}
+
+.theme-ink-faint {
+  color: var(--ink-faint);
+}
+
+.theme-border {
+  border-color: var(--border-subtle);
+}
+
+.theme-border-strong {
+  border-color: var(--border-strong);
+}
+
+.theme-seg {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.theme-btn-active {
+  background-color: var(--btn-active-bg);
+  color: var(--btn-active-fg);
+  border-color: var(--btn-active-border);
+}
+
+.theme-btn-idle {
+  background-color: var(--btn-idle-bg);
+  color: var(--btn-idle-fg);
+  border-color: var(--border-subtle);
+}
+
+.theme-btn-idle:hover:not(:disabled) {
+  background-color: var(--btn-idle-hover-bg);
+  color: var(--btn-idle-hover-fg);
+  border-color: var(--border-strong);
+}
+
+.theme-seg-idle {
+  background-color: transparent;
+  color: var(--ink-muted);
+}
+
+.theme-seg-idle:hover:not(:disabled) {
+  background-color: var(--btn-idle-hover-bg);
+  color: var(--ink-strong);
+}
+
+.theme-input {
+  background-color: var(--bg-surface);
+  color: var(--ink-strong);
+  border: 1px solid var(--border-subtle);
+}
+
+.theme-input:focus {
+  border-color: var(--border-strong);
+  outline: none;
+}
+
+.theme-slider {
+  background-color: var(--slider-track);
+  accent-color: var(--slider-accent);
+}
+
+.theme-checkbox {
+  border-color: var(--border-strong);
+  accent-color: var(--slider-accent);
+}
+
+.theme-row-hover:hover {
+  background-color: var(--row-hover);
+}
+
+.theme-proposed-row {
+  background-color: var(--proposed-row);
+}
+
+/* Figure 2 Token Stratum Chips Across Warm / Light / Dark Themes */
+.tok-discourse {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-muted);
+  color: var(--ink-muted);
+}
+
+.tok-det {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-subtle);
+  color: var(--ink-muted);
+}
+
+.tok-prep {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-subtle);
+  color: var(--ink-faint);
+}
+
+.tok-state {
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--ink-strong);
+  font-weight: 600;
+}
+
+.tok-pruned {
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--ink-faint);
+  text-decoration: line-through;
+  opacity: 0.42;
+}
+
+/* Academic Distill + OpenEvals Article Prose (strictly 65ch for body copy) */
+.paper-prose {
+  position: relative;
+  width: 100%;
+  font-size: 1.035rem;
+  line-height: 1.52;
+  color: var(--ink-body);
+}
+
+.paper-prose > p,
+.paper-prose > ul,
+.paper-prose > ol,
+.paper-prose > blockquote,
+.paper-prose > h2,
+.paper-prose > h3,
+.paper-prose > h4,
+.paper-prose > hr {
+  max-width: 65ch;
+}
+
+.paper-prose > p {
+  font-family: "Charter", "Bitstream Charter", "Sitka Text", "Cambria", Georgia, serif;
+  margin-top: 0.85rem;
+  margin-bottom: 0.85rem;
+}
+
+.paper-prose > ul,
+.paper-prose > ol {
+  font-family: "Charter", "Bitstream Charter", "Sitka Text", "Cambria", Georgia, serif;
+  margin-top: 0.75rem;
+  margin-bottom: 0.95rem;
+  padding-left: 1.4rem;
+}
+
+.paper-prose > ul {
+  list-style-type: disc;
+}
+
+.paper-prose > ol {
+  list-style-type: decimal;
+}
+
+.paper-prose > ul > li,
+.paper-prose > ol > li {
+  margin-bottom: 0.28rem;
+  padding-left: 0.25rem;
+  line-height: 1.5;
+}
+
+.paper-prose strong {
+  color: var(--ink-strong);
+}
+
+.paper-prose > h2 {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+  color: var(--ink-strong);
+  margin-top: 3.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  scroll-margin-top: 2rem;
+}
+
+.paper-prose > h3 {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.225rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  color: var(--ink-strong);
+  margin-top: 2.1rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 2rem;
+}
+
+.paper-prose code:not(pre code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.86em;
+  background-color: var(--bg-muted);
+  color: var(--ink-strong);
+  padding: 0.14rem 0.36rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.paper-prose a {
+  color: var(--ink-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.paper-prose a:hover {
+  color: var(--ink-strong);
+  text-decoration-color: var(--link-underline-hover);
+}
+
+.paper-prose a code:not(pre code) {
+  border-color: var(--border-strong);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.paper-prose a:hover code:not(pre code) {
+  background-color: var(--btn-idle-hover-bg);
+  border-color: var(--ink-faint);
+}
+
+.paper-prose pre {
+  max-width: 90ch;
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.625rem;
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* Display Equations (KaTeX) */
+.paper-prose .katex-display {
+  max-width: min(82ch, 100%);
+  margin: 1.6rem 0;
+  padding: 1.05rem 1.35rem;
+  background: var(--bg-surface);
+  color: var(--ink-strong);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.625rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.paper-prose .katex {
+  font-size: 1.03em;
+}
+
+/* Wide (~90ch central column) & Full-Bleed Figure Breakouts (OpenEvals / Distill Pattern) */
+.figure-wide {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.figure-full-bleed {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 2.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Markdown Tables inside Prose */
+.paper-prose > table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.paper-prose > table th {
+  background: var(--bg-subtle);
+  color: var(--ink-muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.paper-prose > table td {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--ink-body);
+}
+
+/* Bibliography / References Section (Compact Distill Typography) */
+.paper-references {
+  max-width: 72ch;
+  margin-top: 0.75rem;
+}
+
+.paper-references ol {
+  list-style-type: decimal;
+  padding-left: 1.35rem;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.845rem;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.paper-references ol > li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.3rem;
+}
+
+.paper-references ol > li::marker {
+  color: var(--ink-faint);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.paper-references strong {
+  font-weight: 600;
+  color: var(--ink-body);
+}
+
+.paper-references em {
+  color: var(--ink-strong);
+}
+
+.paper-references a {
+  color: var(--ink-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 2.5px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.paper-references a:hover {
+  text-decoration-color: var(--link-underline-hover);
+}
+
+.paper-references code:not(pre code) {
+  font-size: 0.82em;
+  background-color: var(--bg-subtle);
+  color: var(--ink-muted);
+  padding: 0.08rem 0.32rem;
+  border-color: var(--border-subtle);
+}
+
+/* TOC Active Link Marker */
+.toc-link-active {
+  border-left-color: var(--ink-strong) !important;
+  color: var(--ink-strong) !important;
+  font-weight: 600 !important;
+}
+
+/* Balanced 3-Column Academic Layout & Dedicated Right Sidenote Rail */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .paper-body-grid {
+    display: grid;
+    grid-template-columns: 13.5rem minmax(0, 50rem);
+    column-gap: 2rem;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .paper-body-grid[data-toc-collapsed="true"] {
+    grid-template-columns: 7rem minmax(0, 50rem) 7rem;
+    column-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .paper-body-grid {
+    --rail-gap: 1.75rem;
+    --sidenote-width: 15.25rem;
+    display: grid;
+    grid-template-columns: minmax(13.25rem, 1fr) minmax(0, 50rem) minmax(var(--sidenote-width), 1fr);
+    column-gap: var(--rail-gap);
+    align-items: start;
+  }
+
+  .paper-body-grid[data-toc-collapsed="true"] {
+    grid-template-columns: minmax(7.25rem, 1.3fr) minmax(0, 50rem) minmax(var(--sidenote-width), 1fr);
+  }
+
+  .sidenote-body {
+    position: absolute;
+    left: calc(100% + var(--rail-gap));
+    width: var(--sidenote-width);
+    margin-top: -1.15rem;
+  }
+
+  .figure-full-bleed {
+    width: calc(100% + var(--rail-gap) + var(--sidenote-width));
+    max-width: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .paper-body-grid {
+    --rail-gap: 2.25rem;
+    --sidenote-width: 16.5rem;
+    grid-template-columns: minmax(13.5rem, 1.1fr) minmax(0, 50rem) minmax(var(--sidenote-width), 1fr);
+  }
+
+  .paper-body-grid[data-toc-collapsed="true"] {
+    grid-template-columns: minmax(7.5rem, 1.35fr) minmax(0, 50rem) minmax(var(--sidenote-width), 1fr);
+  }
+
+  .paper-body-grid[data-toc-collapsed="true"] .figure-full-bleed {
+    margin-left: calc(-0.42 * (var(--rail-gap) + var(--sidenote-width)));
+  }
+}

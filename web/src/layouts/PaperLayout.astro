@@ -1,0 +1,634 @@
+---
+import 'katex/dist/katex.min.css';
+import '@/styles/global.css';
+import katex from 'katex';
+import { REGIME_META, REGIME_ORDER, SIDECAR_PROBE_COLOR } from '@/types/ablation';
+
+export interface HeadingItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+export interface AuthorItem {
+  name: string;
+  url?: string;
+  affiliation?: string;
+}
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  authors?: AuthorItem[];
+  publishedDate?: string;
+  artifactTimestamp?: string;
+  abstract?: string;
+  headings?: HeadingItem[];
+}
+
+const {
+  title,
+  subtitle = 'Mechanistic Ablations of Syntactic Overhead vs. Continuous Latent State Transitions ($z_k \\in \\mathbb{R}^d$) in Small Language Models',
+  authors = [
+    {
+      name: 'ConstCorrectness',
+      url: 'https://github.com/ConstCorrectness',
+      affiliation: 'github.com/ConstCorrectness',
+    },
+  ],
+  publishedDate = 'November 2026',
+  artifactTimestamp,
+  abstract,
+  headings = [],
+} = Astro.props;
+
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+const renderMath = (tex: string): string =>
+  katex.renderToString(tex, { displayMode: false, output: 'html', throwOnError: false });
+
+function escapeHtml(raw: string): string {
+  return raw
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderInlineLatex(input: string): string {
+  const parts = input.split(/([(\[]?\$[^$]+\$[)\]}.,;:]*)/g);
+  return parts
+    .map((segment) => {
+      const m = segment.match(/^([(\[]?)\$([^$]+)\$([)\]}.,;:]*)$/);
+      if (m) {
+        const [, openPunct, tex, closePunct] = m;
+        const rendered = `${escapeHtml(openPunct)}${renderMath(tex)}${escapeHtml(closePunct)}`;
+        return tex.length <= 48
+          ? `<span class="whitespace-nowrap">${rendered}</span>`
+          : rendered;
+      }
+      return escapeHtml(segment);
+    })
+    .join('');
+}
+
+const NOTATION_ITEMS = [
+  {
+    tex: renderMath('h_t^{(L)} \\in \\mathbb{R}^d'),
+    desc: 'Top-layer hidden state at step t',
+  },
+  {
+    tex: renderMath('z_k \\in \\mathbb{R}^d'),
+    desc: 'Continuous latent thought vector',
+  },
+  {
+    tex: renderMath('f_{\\theta}: \\mathbb{R}^d \\to \\mathbb{R}^d'),
+    desc: 'Gated latent transition adapter',
+  },
+  {
+    tex: renderMath('W_{\\text{unembed}} \\in \\mathbb{R}^{d \\times \\lvert V \\rvert}'),
+    desc: 'Vocabulary unembedding matrix',
+  },
+  {
+    tex: renderMath('\\operatorname{sg}[z_k]'),
+    desc: 'Detached ring-buffer Tee tap',
+  },
+  {
+    tex: renderMath('g_{\\phi}(\\operatorname{sg}[z_{1:K}])'),
+    desc: 'Sidecar Probe state decoder',
+  },
+];
+
+const bannerSubHtml = renderInlineLatex(
+  'Interactive Evaluation & Mechanistic Ablation Suite ($h_t^{(L)} \\to z_{1:K} \\in \\mathbb{R}^d$)'
+);
+const eyebrowHtml = renderInlineLatex(
+  'Empirical Reasoning Frontier · Small Language Models ($0.6\\text{B}$ – $3\\text{B}$)'
+);
+const titleHtml = renderInlineLatex(title);
+const subtitleHtml = subtitle ? renderInlineLatex(subtitle) : '';
+const abstractHtml = abstract ? renderInlineLatex(abstract) : '';
+const evalSplitHtml = renderInlineLatex('Qwen3-0.6B + Qwen2.5 (1.5B, 3B) · GSM8K & MATH');
+const sgInlineHtml = renderMath('\\operatorname{sg}[z_k]');
+const basePrefix = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<!doctype html>
+<html lang="en" data-theme="warm">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href={`${basePrefix}fav.png`} />
+    <link rel="icon" type="image/x-icon" href={`${basePrefix}favicon.ico`} />
+    <link rel="apple-touch-icon" href={`${basePrefix}fav.png`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="description"
+      content="Interactive research monograph investigating syntactic token overhead vs. continuous latent state transitions in Small Language Models."
+    />
+    <title>{title} — GITLTYN Interactive Monograph</title>
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('gitltyn-theme');
+          var theme = saved === 'light' || saved === 'dark' || saved === 'warm' ? saved : 'warm';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (_e) {
+          document.documentElement.setAttribute('data-theme', 'warm');
+        }
+      })();
+    </script>
+  </head>
+  <body class="theme-page min-h-screen">
+    <!-- Academic Top Bar & Constrained Hero Section -->
+    <header class="theme-header w-full border-b backdrop-blur-sm">
+      <div class="theme-border border-b">
+        <div class="theme-ink-muted mx-auto flex max-w-[98rem] flex-wrap items-center justify-between gap-3 px-6 py-2.5 text-xs lg:px-8">
+          <div class="flex items-center gap-2.5">
+            <span class="theme-muted theme-border theme-ink-body inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wider uppercase">
+              <span class="theme-ink-faint h-1.5 w-1.5 rounded-full bg-current opacity-70"></span>
+              GITLTYN Monograph
+            </span>
+            <span class="theme-ink-faint hidden opacity-45 sm:inline">|</span>
+            <span
+              class="theme-ink-muted hidden font-medium sm:inline"
+              set:html={bannerSubHtml}
+            />
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3.5">
+            <div class="theme-ink-faint hidden items-center gap-3.5 font-mono text-[11px] sm:flex">
+              <span>
+                Schema:{' '}
+                <a
+                  href="https://github.com/ConstCorrectness/GITLTYN/blob/main/shared/schema.json"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="theme-ink-muted underline underline-offset-2 transition hover:opacity-85"
+                >
+                  shared/schema.json
+                </a>{' '}
+                (v2020-12)
+              </span>
+              {artifactTimestamp && (
+                <span class="hidden xl:inline">Artifact: {artifactTimestamp}</span>
+              )}
+            </div>
+
+            <!-- 3-Way Theme Picker (Warm Paper | Crisp Light | Dark) -->
+            <div
+              role="group"
+              aria-label="Color theme selector"
+              class="theme-seg inline-flex items-center rounded-lg p-0.5 text-[11px] font-medium shadow-2xs"
+            >
+              <button
+                type="button"
+                data-theme-btn="warm"
+                aria-pressed="true"
+                title="Warm archival paper theme"
+                class="theme-btn-active inline-flex items-center gap-1 rounded-md px-2 py-0.5 transition"
+              >
+                <span class="inline-block h-2 w-2 rounded-full border border-stone-400/70 bg-[#efe7d6]"></span>
+                <span>Warm</span>
+              </button>
+              <button
+                type="button"
+                data-theme-btn="light"
+                aria-pressed="false"
+                title="Crisp white light theme"
+                class="theme-seg-idle inline-flex items-center gap-1 rounded-md px-2 py-0.5 transition"
+              >
+                <span class="inline-block h-2 w-2 rounded-full border border-slate-300 bg-white"></span>
+                <span>Light</span>
+              </button>
+              <button
+                type="button"
+                data-theme-btn="dark"
+                aria-pressed="false"
+                title="Deep slate dark theme"
+                class="theme-seg-idle inline-flex items-center gap-1 rounded-md px-2 py-0.5 transition"
+              >
+                <span class="inline-block h-2 w-2 rounded-full border border-slate-600 bg-[#0f172a]"></span>
+                <span>Dark</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proportioned Hero Section: Title, Metadata & KaTeX-Parsed Abstract -->
+      <div class="mx-auto max-w-[60rem] px-6 pt-8 pb-8 sm:px-10 lg:pt-9 lg:pb-9">
+        <div class="w-full">
+          <p
+            class="theme-ink-muted mb-2.5 font-mono text-xs font-medium tracking-widest uppercase"
+            set:html={eyebrowHtml}
+          />
+          <h1
+            class="theme-ink-strong text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.12]"
+            set:html={titleHtml}
+          />
+          {subtitle && (
+            <p
+              class="theme-ink-muted mt-2.5 w-full text-lg leading-snug sm:text-xl"
+              set:html={subtitleHtml}
+            />
+          )}
+
+          <!-- Full-Width Academic Metadata Grid -->
+          <div class="theme-border mt-6 grid w-full grid-cols-1 gap-4 border-y py-3.5 text-xs sm:grid-cols-3">
+            <div>
+              <div class="theme-ink-faint font-semibold tracking-wider uppercase">Authors</div>
+              <div class="mt-1 space-y-1">
+                {authors.map((author) => (
+                  <div>
+                    {author.url ? (
+                      <a
+                        href={author.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="theme-ink-strong inline-flex items-center gap-1.5 font-semibold underline underline-offset-3 transition hover:opacity-80"
+                      >
+                        <svg
+                          viewBox="0 0 16 16"
+                          aria-hidden="true"
+                          class="h-3.5 w-3.5 fill-current opacity-85"
+                        >
+                          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+                        </svg>
+                        <span>{author.name}</span>
+                      </a>
+                    ) : (
+                      <span class="theme-ink-strong font-semibold">{author.name}</span>
+                    )}
+                    {author.affiliation && (
+                      <span class="theme-ink-muted block">{author.affiliation}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div class="theme-ink-faint font-semibold tracking-wider uppercase">Published</div>
+              <div class="theme-ink-strong mt-1 font-medium">{publishedDate}</div>
+              <div class="theme-ink-muted" set:html={evalSplitHtml} />
+            </div>
+            <div>
+              <div class="theme-ink-faint font-semibold tracking-wider uppercase">Reproducibility</div>
+              <div class="theme-ink-body mt-1 font-mono text-[11px]">
+                <a
+                  href="https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/scripts/run_qwen3_ablation.py"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline underline-offset-3 transition hover:opacity-80"
+                >
+                  experiments/scripts/run_qwen3_ablation.py
+                </a>
+              </div>
+              <div class="theme-ink-muted">PyTorch Qwen3-0.6B + schema-validated JSON</div>
+            </div>
+          </div>
+
+          {abstract && (
+            <div class="theme-subtle theme-border mt-5 w-full rounded-xl border p-5 sm:px-6 sm:py-5">
+              <div class="theme-ink-faint mb-1.5 font-sans text-[11px] font-bold tracking-widest uppercase">
+                Abstract
+              </div>
+              <p
+                class="theme-ink-body w-full font-serif text-[0.98rem] leading-[1.55]"
+                set:html={abstractHtml}
+              />
+            </div>
+          )}
+
+          <!-- Global Semantic Color Encoding Legend (REGIME_META) -->
+          <div class="theme-ink-muted mt-4 flex w-full flex-wrap items-center gap-x-5 gap-y-2 text-xs">
+            <span class="theme-ink-faint font-semibold tracking-wider uppercase">
+              Regime Encoding:
+            </span>
+            {REGIME_ORDER.map((regime) => {
+              const meta = REGIME_META[regime];
+              return (
+                <span class="theme-ink-body inline-flex items-center gap-1.5 font-medium">
+                  <span
+                    class="inline-block h-2.5 w-2.5 rounded-full"
+                    style={`background-color: ${meta.color};`}
+                  />
+                  {meta.label}
+                </span>
+              );
+            })}
+            <span class="theme-ink-body inline-flex items-center gap-1.5 font-medium">
+              <span
+                class="inline-block h-2.5 w-2.5 rounded-sm"
+                style={`background-color: ${SIDECAR_PROBE_COLOR};`}
+              />
+              <span>Sidecar Probe (</span>
+              <span class="text-[11px]" set:html={sgInlineHtml} />
+              <span>)</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Balanced 3-Column Layout: Togglable Left TOC | Centered Article | Right Sidenote Rail -->
+    <div
+      id="paper-body-grid"
+      data-toc-collapsed="false"
+      class="paper-body-grid mx-auto max-w-[98rem] px-6 py-9 lg:px-8"
+    >
+      <!-- Collapsible Sticky Table of Contents & Typeset Notation Key Sidebar -->
+      <aside class="mb-8 lg:mb-0">
+        <div class="lg:sticky lg:top-8">
+          <!-- Mobile Collapsible TOC -->
+          <details class="theme-surface theme-border rounded-lg border p-3.5 lg:hidden">
+            <summary class="theme-ink-strong cursor-pointer text-xs font-bold tracking-wider uppercase">
+              Contents ({tocHeadings.length} sections)
+            </summary>
+            <nav aria-label="Mobile Table of Contents" class="theme-border mt-3 space-y-1.5 border-t pt-2.5">
+              {tocHeadings.map((h) => (
+                <a
+                  href={`#${h.slug}`}
+                  class:list={[
+                    'theme-ink-muted block text-xs leading-snug transition hover:opacity-100',
+                    h.depth === 3 ? 'pl-3 opacity-85' : 'font-medium',
+                  ]}
+                >
+                  {h.text}
+                </a>
+              ))}
+            </nav>
+          </details>
+
+          <!-- Desktop Collapsed Reopen Button (hidden while sidebar is open) -->
+          <div id="desktop-toc-closed" class="hidden">
+            <button
+              type="button"
+              id="toc-expand-btn"
+              aria-expanded="false"
+              aria-controls="desktop-toc-open"
+              title="Show Table of Contents & Notation Key"
+              class="theme-btn-idle inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium shadow-2xs transition"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                class="h-3.5 w-3.5 stroke-current opacity-75"
+                fill="none"
+                stroke-width="1.5"
+              >
+                <rect x="2" y="2.5" width="12" height="11" rx="2" />
+                <line x1="6" y1="2.5" x2="6" y2="13.5" />
+              </svg>
+              <span>Contents</span>
+            </button>
+          </div>
+
+          <!-- Desktop Sticky TOC (open by default, togglable) -->
+          <nav
+            id="desktop-toc-open"
+            aria-label="Table of Contents"
+            class="hidden lg:ml-auto lg:block lg:w-[13.5rem]"
+          >
+            <div class="mb-3 flex items-center justify-between gap-2">
+              <span class="theme-ink-faint text-[11px] font-bold tracking-widest uppercase">
+                On This Page
+              </span>
+              <button
+                type="button"
+                id="toc-collapse-btn"
+                aria-expanded="true"
+                aria-controls="desktop-toc-open"
+                title="Collapse sidebar"
+                class="theme-btn-idle inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-[10.5px] font-medium transition"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                  class="h-3 w-3 stroke-current"
+                  fill="none"
+                  stroke-width="1.5"
+                >
+                  <rect x="2" y="2.5" width="12" height="11" rx="2" />
+                  <line x1="6" y1="2.5" x2="6" y2="13.5" />
+                </svg>
+                <span>Hide</span>
+              </button>
+            </div>
+            <ul class="theme-border space-y-1.5 border-l text-[13px]" id="desktop-toc">
+              {tocHeadings.map((h) => (
+                <li>
+                  <a
+                    href={`#${h.slug}`}
+                    data-toc-link={h.slug}
+                    class:list={[
+                      'theme-ink-muted -ml-px block border-l-2 border-transparent py-0.5 leading-snug transition-colors',
+                      h.depth === 3 ? 'pl-4 text-xs opacity-85' : 'pl-3 font-medium',
+                    ]}
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <!-- Typeset KaTeX Notation Key Card -->
+            <div class="theme-surface theme-border mt-7 rounded-xl border p-3.5 shadow-2xs">
+              <div class="theme-border flex items-center justify-between border-b pb-2">
+                <span class="theme-ink-muted text-[11px] font-bold tracking-widest uppercase">
+                  Notation Key
+                </span>
+                <span class="theme-ink-faint font-mono text-[10px]">LaTeX</span>
+              </div>
+              <dl class="mt-2.5">
+                {NOTATION_ITEMS.map((item, idx) => (
+                  <div class:list={['py-2 first:pt-0.5 last:pb-0', idx > 0 && 'theme-border border-t']}>
+                    <dt class="theme-ink-strong text-[12.5px]" set:html={item.tex} />
+                    <dd class="theme-ink-muted mt-0.5 text-[11px] leading-snug">
+                      {item.desc}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Centered Article Pane -->
+      <main class="min-w-0">
+        <article class="paper-prose">
+          <slot />
+        </article>
+      </main>
+
+      <!-- Dedicated Right Sidenote Rail Track (reserves right margin clear of content & figures) -->
+      <div class="paper-right-rail hidden xl:block" aria-hidden="true"></div>
+    </div>
+
+    <footer class="theme-surface theme-border theme-ink-muted mt-14 w-full border-t py-8 text-xs">
+      <div class="mx-auto flex max-w-[98rem] flex-col justify-between gap-4 px-6 sm:flex-row sm:items-center lg:px-8">
+        <div>
+          <span class="theme-ink-strong font-semibold">Grammar is the Last Thing You Need (GITLTYN)</span>
+          <span class="theme-ink-faint mx-2">·</span>
+          <span>
+            By{' '}
+            <a
+              href="https://github.com/ConstCorrectness"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="theme-ink-strong font-medium underline underline-offset-2 hover:opacity-80"
+            >
+              ConstCorrectness
+            </a>
+          </span>
+        </div>
+        <div class="theme-ink-faint font-mono text-[11px]">
+          uv run python{' '}
+          <a
+            href="https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/scripts/export_web_artifacts.py"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="theme-ink-muted underline underline-offset-2 transition hover:opacity-80"
+          >
+            experiments/scripts/export_web_artifacts.py
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const themeBtns = Array.from(
+        document.querySelectorAll<HTMLButtonElement>('[data-theme-btn]')
+      );
+
+      const syncThemeButtons = (activeTheme: string) => {
+        themeBtns.forEach((btn) => {
+          const isMatch = btn.dataset.themeBtn === activeTheme;
+          btn.setAttribute('aria-pressed', isMatch ? 'true' : 'false');
+          btn.classList.toggle('theme-btn-active', isMatch);
+          btn.classList.toggle('theme-seg-idle', !isMatch);
+        });
+      };
+
+      const setDocumentTheme = (nextTheme: string) => {
+        const valid =
+          nextTheme === 'light' || nextTheme === 'dark' || nextTheme === 'warm'
+            ? nextTheme
+            : 'warm';
+        document.documentElement.setAttribute('data-theme', valid);
+        try {
+          localStorage.setItem('gitltyn-theme', valid);
+        } catch (_err) {
+          // Ignore storage quota / privacy mode errors
+        }
+        syncThemeButtons(valid);
+        window.dispatchEvent(new CustomEvent('gitltyn-theme-change', { detail: valid }));
+      };
+
+      syncThemeButtons(document.documentElement.getAttribute('data-theme') || 'warm');
+      themeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.themeBtn) {
+            setDocumentTheme(btn.dataset.themeBtn);
+          }
+        });
+      });
+
+      const openPanel = document.getElementById('desktop-toc-open');
+      const closedPanel = document.getElementById('desktop-toc-closed');
+      const collapseBtn = document.getElementById('toc-collapse-btn');
+      const expandBtn = document.getElementById('toc-expand-btn');
+      const bodyGrid = document.getElementById('paper-body-grid');
+      const proseEl = document.querySelector<HTMLElement>('.paper-prose');
+
+      const syncSidenotes = () => {
+        if (!proseEl) return;
+        const wrappers = Array.from(proseEl.querySelectorAll<HTMLElement>('.sidenote-wrapper'));
+        if (window.innerWidth < 1280) {
+          wrappers.forEach((w) => {
+            const body = w.querySelector<HTMLElement>('.sidenote-body');
+            if (body) {
+              body.style.top = '';
+              body.style.marginTop = '';
+            }
+          });
+          return;
+        }
+
+        const proseTop = proseEl.getBoundingClientRect().top;
+        let minNextTop = 0;
+        wrappers.forEach((w) => {
+          const ref = w.querySelector<HTMLElement>('[data-sidenote-ref]');
+          const body = w.querySelector<HTMLElement>('.sidenote-body');
+          if (!ref || !body) return;
+          const refTop = ref.getBoundingClientRect().top - proseTop - 2;
+          const placedTop = Math.max(minNextTop, Math.round(refTop));
+          body.style.marginTop = '0px';
+          body.style.top = `${placedTop}px`;
+          minNextTop = placedTop + body.offsetHeight + 18;
+        });
+      };
+
+      const applyTocState = (collapsed: boolean) => {
+        if (!openPanel || !closedPanel || !bodyGrid) return;
+        bodyGrid.dataset.tocCollapsed = collapsed ? 'true' : 'false';
+        collapseBtn?.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        expandBtn?.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
+        if (collapsed) {
+          openPanel.classList.remove('lg:block');
+          closedPanel.classList.add('lg:block');
+        } else {
+          openPanel.classList.add('lg:block');
+          closedPanel.classList.remove('lg:block');
+        }
+        window.dispatchEvent(new Event('resize'));
+        requestAnimationFrame(syncSidenotes);
+      };
+
+      collapseBtn?.addEventListener('click', () => applyTocState(true));
+      expandBtn?.addEventListener('click', () => applyTocState(false));
+
+      syncSidenotes();
+      window.addEventListener('resize', syncSidenotes);
+      if (proseEl && 'ResizeObserver' in window) {
+        const ro = new ResizeObserver(() => syncSidenotes());
+        ro.observe(proseEl);
+      }
+
+      const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+      if (links.length > 0 && 'IntersectionObserver' in window) {
+        const slugToLink = new Map<string, HTMLAnchorElement>();
+        links.forEach((link) => {
+          const slug = link.getAttribute('data-toc-link');
+          if (slug) slugToLink.set(slug, link);
+        });
+
+        const setActive = (activeSlug: string) => {
+          slugToLink.forEach((link, slug) => {
+            link.classList.toggle('toc-link-active', slug === activeSlug);
+          });
+        };
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting && entry.target.id) {
+                setActive(entry.target.id);
+                break;
+              }
+            }
+          },
+          { rootMargin: '-10% 0px -75% 0px', threshold: 0 }
+        );
+
+        slugToLink.forEach((_, slug) => {
+          const headingEl = document.getElementById(slug);
+          if (headingEl) observer.observe(headingEl);
+        });
+      }
+    </script>
+  </body>
+</html>

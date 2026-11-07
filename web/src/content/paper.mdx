@@ -1,0 +1,152 @@
+---
+title: "Grammar is the Last Thing You Need"
+subtitle: "Decoupling Latent State Transitions ($z_k \\in \\mathbb{R}^d$) from Syntactic Token Overhead ($W_{\\text{unembed}}$) in Small Language Models"
+publishedDate: "November 2026"
+abstract: "Autoregressive Chain-of-Thought (CoT) prompting conflates two distinct computational processes: executing sequential algebraic state transitions in hidden space ($h_t^{(L)} \\in \\mathbb{R}^d$) and serializing English grammatical scaffolding through the vocabulary unembedding bottleneck ($W_{\\text{unembed}} \\in \\mathbb{R}^{d \\times \\lvert V \\rvert}$). Across GSM8K and MATH evaluations spanning `Qwen3-0.6B` ($0.6\\text{B}$), `Qwen2.5-1.5B` ($1.5\\text{B}$), and `Qwen2.5-3B` ($3\\text{B}$) Small Language Models (SLMs), we show that stripping syntactic fluency glue (Telegraphic CoT, used strictly as a motivational ablation control) reduces emitted tokens by $64.6\\%$ to $67.1\\%$ while retaining over $99\\%$ of baseline accuracy—whereas forcing verbose CoT into an equivalent compute budget causes accuracy to collapse. Building on this separation, we introduce Continuous Latent Looping with a fixed-capacity Detachable Ring-Buffer Latent Tee ($M \\le K$), executing $K$ recurrent transitions directly in $\\mathbb{R}^d$ with $O(1)$ trajectory memory overhead while preserving on-demand mechanistic auditability via Logit Lens projections and a stop-gradient Sidecar Probe ($g_{\\phi}(\\operatorname{sg}[z_{1:K}])$, $\\nabla_{\\theta_{\\text{backbone}}} \\mathcal{L}_{\\text{probe}} = 0$)."
+---
+
+import Sidenote from '@/components/academic/Sidenote.astro';
+import TakeawayBox from '@/components/academic/TakeawayBox.astro';
+import EpochExplorer from '@/components/interactive/EpochExplorer';
+import SyntaxPrunerDemo from '@/components/interactive/SyntaxPrunerDemo';
+import LatentTeeInspector from '@/components/interactive/LatentTeeInspector';
+import RegimeSummaryWidget from '@/components/interactive/RegimeSummaryWidget';
+
+## 1. The Syntactic Tax of Autoregressive Chain-of-Thought
+
+When a Small Language Model (SLM) solves a multi-step reasoning problem via standard Chain-of-Thought (CoT), every intermediate step is forced through a discrete vocabulary bottleneck. At decoding step $t$, the top-layer hidden state $h_t^{(L)} \in \mathbb{R}^d$ is projected against the vocabulary unembedding matrix $W_{\text{unembed}} \in \mathbb{R}^{d \times \lvert V \rvert}$ to sample a single discrete token, which is then re-embedded and appended to the key-value (KV) cache for step $t + 1$.<Sidenote id={1} title="Unembedding Bandwidth Bottleneck">For `Qwen2.5-1.5B` ${(d = 1536,}$ ${\lvert V \rvert = 151{,}936)},$ projecting $h_t^{(L)} \cdot W_{\text{unembed}}$ alone requires ${2 d \lvert V \rvert = 4.67 \times 10^8}$ FLOPs and streams ${\approx 445\text{ MB}}$ of FP16 unembedding weights per emitted token.</Sidenote>
+
+Crucially, natural-language training corpora entangle **state-transition tokens**—numeric literals, algebraic operators, variable bindings, and intermediate quantities—with **syntactic fluency tokens** such as discourse markers (*"Let's think step by step"*), determiners (*"the"*, *"a"*), copulas (*"is"*, *"was"*), and prepositional scaffolding. In memory-bandwidth-bound SLM deployments, emitting a syntactic article like `"the"` incurs the exact same per-token KV-cache growth and $W_{\text{unembed}}$ projection cost as committing a pivotal arithmetic result like `"72"`.
+
+$$
+p(y_t \mid y_{\lt t}, x) = \operatorname{softmax}\!\left(\frac{\operatorname{RMSNorm}\!\left(h_t^{(L)}\right) W_{\text{unembed}}}{\tau}\right), \quad h_t^{(L)} \in \mathbb{R}^d, \; W_{\text{unembed}} \in \mathbb{R}^{d \times \lvert V \rvert}
+$$
+
+To isolate how much of CoT's compute budget actually advances the underlying reasoning state versus maintaining grammatical well-formedness—trained end-to-end in PyTorch on `Qwen3-0.6B` via [`experiments/src/qwen3_ablation.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/qwen3_ablation.py), [`experiments/src/train_pipeline.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/train_pipeline.py), and [`experiments/scripts/run_qwen3_ablation.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/scripts/run_qwen3_ablation.py), exported via [`experiments/scripts/export_web_artifacts.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/scripts/export_web_artifacts.py), and configured in [`experiments/src/config.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/config.py)—we evaluate four controlled inference regimes across `Qwen3-0.6B` ${(0.6\text{B}),}$ `Qwen2.5-1.5B` ${(1.5\text{B}),}$ and `Qwen2.5-3B` ${(3.0\text{B})}$ on **GSM8K** and **MATH**:
+
+1. **Verbose CoT (`verbose_cot`, Baseline)**: Unconstrained grammatical Chain-of-Thought generation.
+2. **Telegraphic CoT (`telegraphic_cot`, Motivational Ablation A)**: Syntactically pruned traces ([`experiments/src/prune_syntax.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/prune_syntax.py)) serving strictly as an empirical control that strips grammatical glue while preserving state-transition tokens.
+3. **Compute-Matched / Budget-Forced CoT (`compute_matched`, Motivational Ablation B)**: Standard verbose CoT truncated/forced to match the exact token and FLOP budget of Telegraphic CoT.
+4. **Latent Loop + Ring-Buffer Tee (`latent_loop`, Proposed Architecture — Ablation C)**: $K$ recurrent state transitions $z_k \in \mathbb{R}^d$ executed directly in continuous latent space ([`experiments/src/latent_loop.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/latent_loop.py)), paired with a fixed-capacity detachable `RingBufferLatentTee` ($M \le K$) and stop-gradient `SidecarProbe` ($g_{\phi}(\operatorname{sg}[z_{1:K}])$).
+
+<TakeawayBox
+  title="Core Finding: Grammar Consumes ~66% of CoT Tokens Without Advancing State"
+  eyebrow="Empirical Summary"
+  variant="latent_loop"
+>
+  Across both 1.5B and 3B SLMs on GSM8K and MATH, stripping syntactic fluency tokens (**Telegraphic CoT** motivational control) reduces emitted tokens by **64.6%–67.1%** and KV-cache memory by **53.4%–54.9%** while remaining within **0.4–0.6 percentage points** (&lt;1%) of unconstrained Verbose CoT accuracy. Conversely, truncating Verbose CoT to that same compute budget (**Compute-Matched**) degrades accuracy by **15.4 to 24.8 percentage points**. Bypassing discrete token emission via **Continuous Latent Looping** ($K \in \{8, 12, 16, 20\}$) shifts the global Pareto frontier upward by **+1.2 to +3.6 percentage points** over Verbose CoT while reducing inference FLOPs by **73.0%–77.8%**.
+</TakeawayBox>
+
+## 2. The Reasoning Compute Frontier
+
+Interactive Figure 1 below maps all schema-validated evaluation runs across `0.6B`, `1.5B`, and `3B` SLMs on GSM8K and MATH. Use the control bar to switch the X-axis between **Compute (GFLOPs / Problem)**, **Mean Tokens Emitted**, and **KV-Cache Footprint (KB)**, toggle between **Linear** and **Logit** ${(\ln(p / (1 - p)))}$ accuracy scales, or filter to **Pareto Frontier Only** operating points.<Sidenote id={2} title="Logit Scaling Near Saturation">Following Epoch AI evaluation conventions, toggling the Y-axis to Logit scale $\operatorname{logit}(p) = \ln(p / (1 - p))$ linearizes log-odds gains across tasks of differing baseline difficulty (GSM8K ${\approx 72\text{--}87\%}$ vs. MATH ${\approx 36\text{--}55\%).}$</Sidenote>
+
+<div class="figure-wide">
+  <EpochExplorer client:load defaultBenchmark="GSM8K" initialXMetric="flops_per_problem" />
+</div>
+
+Inspecting Figure 1 reveals three structural regularities across both model scales:
+
+- **Iso-Accuracy Compression (Slate vs. Amber)**: On GSM8K, `Qwen2.5-1.5B` drops from $264$ mean emitted tokens (`965.2` GFLOPs, `9,184` KB KV-cache) under `verbose_cot` to $89$ tokens (`432.0` GFLOPs, `4,284` KB KV-cache) under `telegraphic_cot`, while accuracy shifts from $72.4\%$ to $71.8\%$—well within the $95\%$ Wilson confidence interval ${([69.3\%, 74.2\%]).}$ Similarly, `Qwen2.5-3B` compresses from $286$ to $94$ tokens on GSM8K ($84.2\%$ vs. $83.8\%$ accuracy) and from $446$ to $156$ tokens on MATH ($51.6\%$ vs. $51.2\%$ accuracy).
+- **Budget Starvation Under Verbose Grammar (Amber vs. Red)**: When `verbose_cot` is forced into the exact token and FLOP budget of `telegraphic_cot` (`compute_matched` / `budget_forced_cot`), accuracy plummets to $48.6\%$ on GSM8K ${(1.5\text{B})}$ and $59.4\%$ ${(3.0\text{B}),}$ and drops from $51.6\%$ to $31.8\%$ on MATH ${(3.0\text{B}).}$ Because verbose generation expends over half of its token budget on conversational preamble and clause structure, hard compute caps terminate generation before the final algebraic state transition is reached.
+- **Global Dominance of Continuous Recurrence (Emerald Curve)**: Every Pareto-optimal operating point on both GSM8K and MATH belongs to `latent_loop`. On GSM8K with $K = 8$ latent steps, `Qwen2.5-1.5B` achieves $73.9\%$ accuracy (`18` emitted answer tokens, `237.6` GFLOPs, `2,520` KB KV-cache)—surpassing `verbose_cot` by $+1.5$ percentage points at $24.6\%$ of the FLOP budget. Extending recurrence to $K = 16$ reaches $75.2\%$ ${(1.5\text{B})}$ and $86.7\%$ ${(3.0\text{B}).}$
+
+## 3. Ablation A: Syntactic Pruning as a Motivational Control
+
+Why does Telegraphic CoT preserve reasoning fidelity while cutting token volume by two-thirds? A chain of thought can be decomposed into a sequence of discrete variable bindings $\mathcal{S} = \{s_1, s_2, \dots, s_M\}$ interleaved with syntactic tokens $\mathcal{G}$ that satisfy surface English grammar. Importantly, **Telegraphic CoT is not our proposed final architecture**—it serves as an empirical control isolating the syntactic tax before moving reasoning into $\mathbb{R}^d$. In our syntactic pruning utility ([`experiments/src/prune_syntax.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/prune_syntax.py)), each token is classified into one of four functional strata:<Sidenote id={3} title="Stratified Pruning Thresholds">Tokens are pruned monotonically by grammatical stratum: discourse scaffolding first ${(\tau \in [0.04, 0.36]),}$ determiners and auxiliaries second ${(\tau \in [0.37, 0.68]),}$ and prepositions or conjunctions third ${(\tau \in [0.69, 0.99]),}$ while state-transition tokens carry ${\tau = 1.50}$ and are never pruned.</Sidenote>
+
+1. **Discourse Markers ($\tau \in [0.04, 0.36]$)**: Conversational framing (*"Let's"*, *"think"*, *"step"*, *"First"*, *"Therefore"*, *"calculate"*).
+2. **Determiners &amp; Auxiliaries ($\tau \in [0.37, 0.68]$)**: Articles, pronouns, and copulas (*"the"*, *"a"*, *"is"*, *"was"*, *"she"*, *"that"*).
+3. **Prepositions &amp; Conjunctions ($\tau \in [0.69, 0.99]$)**: Relational connectors (*"of"*, *"in"*, *"to"*, *"for"*, *"because"*, *"and"*).
+4. **State Transitions (Preserved)**: Numeric values, algebraic operators (`=`, `+`, `-`, `/`, `^`), and bound state identifiers (`apr_clips = 48`, `may_clips = 48 / 2 = 24`, `(n+3)^2 = 196`).
+
+In Interactive Figure 2 below, drag the **Syntactic Pruning Intensity** slider from `0%` (full grammatical CoT) to `100%` (pure Telegraphic CoT) to observe grammatical strata fading out of the token stream while live FP16 KV-cache footprint and per-trace GFLOPs drop in real time.
+
+<div class="figure-wide">
+  <SyntaxPrunerDemo client:load initialRatioPercent={65} />
+</div>
+
+<TakeawayBox
+  title="Why Budget-Forced Verbose CoT Collapses"
+  eyebrow="Ablation A vs. Ablation B"
+  variant="compute_matched"
+>
+  Compare the live slider cursor in Figure 2 against the Red **Compute-Matched** (`budget_forced_cot`) point in the embedded chart. At 100% syntactic pruning on GSM8K (`Qwen2.5-1.5B`), removing grammatical glue leaves all arithmetic transitions intact ($71.8\%$ accuracy at $4,284\text{ KB}$ KV-cache). When an unpruned model is instead truncated at the same $89$-token budget, $66\%$ of those $89$ tokens are consumed by syntax, starving the derivation mid-equation ($48.6\%$ accuracy).
+</TakeawayBox>
+
+## 4. Ablation C: Continuous Latent Recurrence &amp; `RingBufferLatentTee`
+
+While Telegraphic CoT eliminates syntactic tokens, it still forces every remaining state transition through discrete vocabulary projection $W_{\text{unembed}} \in \mathbb{R}^{d \times \lvert V \rvert}$ and restricts intermediate representations to single-token embeddings rather than dense superpositions in $\mathbb{R}^d$.
+
+To remove the discrete tokenization bottleneck entirely during intermediate reasoning, **Continuous Latent Looping** ([`experiments/src/latent_loop.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/latent_loop.py)) initializes $z_0 = h_t^{(L)} \in \mathbb{R}^d$ at the end of the prompt and applies a lightweight gated residual adapter $f_{\theta}: \mathbb{R}^d \to \mathbb{R}^d$ for $k = 1, \dots, K$ recurrent steps before invoking $W_{\text{unembed}}$ strictly once to emit the final answer:<Sidenote id={4} title="Adapter Parameterization">In [`latent_loop.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/latent_loop.py), $f_{\theta}$ is parameterized as a SwiGLU residual block $f_{\theta}(z) = (\operatorname{SiLU}(z W_{\text{gate}}) \odot (z W_{\text{up}})) W_{\text{down}},$ adding under ${1.8\%}$ parameter overhead while bypassing $\mathbb{R}^{d \times \lvert V \rvert}$ unembedding across steps ${1 \dots K.}$</Sidenote>
+
+$$
+z_0 = h_t^{(L)} \in \mathbb{R}^d, \qquad z_k = \operatorname{RMSNorm}\!\left(z_{k-1} + f_{\theta}(z_{k-1})\right) \in \mathbb{R}^d \quad \text{for } k \in \{1, \dots, K\}
+$$
+
+### Resolving the Interpretability-Efficiency Dilemma via `RingBufferLatentTee`
+
+A pervasive objection to continuous latent reasoning is **opacity**: if the model reasons in $\mathbb{R}^d$ without emitting text tokens, how can practitioners audit intermediate steps or diagnose reasoning failures without incurring $O(K d)$ trajectory memory growth or gradient interference?
+
+We resolve this tension with `RingBufferLatentTee` and `SidecarProbe` in [`experiments/src/latent_loop.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/latent_loop.py) and [`experiments/src/qwen3_ablation.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/qwen3_ablation.py) (continuously verified in [`experiments/tests/test_schema_export.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/tests/test_schema_export.py) and [`experiments/tests/test_qwen3_pytorch.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/tests/test_qwen3_pytorch.py)):
+
+$$
+\tilde{z}_k = \operatorname{sg}[z_k] \in \mathbb{R}^d, \qquad \ell_k = \operatorname{RMSNorm}(\tilde{z}_k) W_{\text{unembed}} \in \mathbb{R}^{\lvert V \rvert}, \qquad \nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}}\!\left(\phi; \operatorname{sg}[z_{1:K}], y\right) = 0
+$$
+
+1. **Stop-Gradient Tap &amp; Disjoint Probe Optimization ($\nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}} = 0$)**: `RingBufferLatentTee.push(z_k)` unconditionally invokes `z_k.detach()` ($\tilde{z}_k = \operatorname{sg}[z_k]$) *before* storing states in the buffer or passing them to `SidecarProbe` ($g_{\phi}$) or `LogitLens`. Furthermore, `SidecarProbe.step_probe_optimizer(...)` optimizes $\mathcal{L}_{\text{probe}}$ in a separate optimizer step strictly over probe weights $\phi$, ensuring auxiliary readouts never backpropagate into $\theta_{\text{backbone}}$ or force the backbone to encode surface grammar.
+2. **Fixed-Capacity $O(1)$ Circular Buffer ($M \le K$) &amp; Zero-Overhead Production Default**: `RingBufferLatentTee` allocates a fixed circular buffer of capacity $M \le K$, bounding activation memory overhead to $O(M d) = O(1)$ with respect to total recurrence depth $K$. By default in production (`enable_latent_tee=False` in [`experiments/src/config.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/config.py)), `push(z_k)` is an immediate $O(1)$ no-op; setting `enable_latent_tee=True` enables on-demand Logit Lens and `SidecarProbe` decoding of the latest $M$ transitions.
+
+In Interactive Figure 3 below, scrub across latent steps $z_1 \dots z_K$ on GSM8K and MATH traces, and toggle the **Latent Tee Valve** between **OPEN** (`enable_latent_tee=True`) and **CLOSED** (`enable_latent_tee=False`).
+
+<div class="figure-wide">
+  <LatentTeeInspector client:load defaultProblemIndex={0} defaultValveOpen={true} />
+</div>
+
+Observe two mechanistic phenomena in Figure 3 as you scrub across steps $k = 1 \dots K$:
+
+- **Superposition Before Crystallization**: On `gsm8k_001_natalia_clips` at step $k = 2$, the Logit Lens projection of $\operatorname{sg}[z_2]$ simultaneously assigns probability mass to `"48"` ($24.2\%$), `"/2"` ($20.4\%$), `"half"` ($12.0\%$), and the target quotient `"24"` ($5.9\%$) within a single vector $z_2 \in \mathbb{R}^d$, before crystallizing `"24"` ($32.0\%$) at step $k = 3$ and `"72"` ($45.6\%$) at step $k = 6$.
+- **Distractor Suppression in Latent Space**: Switch Figure 3 to `gsm8k_042_bakery_crates`. At step $k = 3$ ${(\lVert z_3 \rVert_2 = 14.254),}$ the detached Sidecar Probe reveals `[k=3] mask distractor(counter_display=12) [unshipped]`, filtering out the $12$ unshipped display croissants before executing $14 \times 15 = 210$ at steps $k = 4 \dots 5$.
+
+## 5. Related Work &amp; Architectural Positioning
+
+While our core latent recurrence builds on recent advances in continuous and recurrent-depth transformers, GITLTYN enforces three explicit architectural differentiations in [`experiments/src/latent_loop.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/latent_loop.py) and [`experiments/src/config.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/config.py):
+
+### 1. Continuous Thought Without Gradient Interference vs. Coconut (Hao et al., 2024)
+**Coconut** (*Chain of Continuous Thought*; Hao et al., 2024) feeds the terminal hidden state $h_t^{(L)} \in \mathbb{R}^d$ directly back as the next input embedding, bypassing $W_{\text{unembed}}$, but creates an unauditable black-box trajectory in $\mathbb{R}^d$ and suffers accuracy degradation ($\sim 8\%$ on GSM8K) without multi-stage curriculum training. Conversely, attaching naive auxiliary readout heads directly to $z_k$ contaminates latent representations with surface syntax gradients. By enforcing `.detach()` ($\operatorname{sg}[z_{1:K}]$) at the `RingBufferLatentTee` tap point prior to `SidecarProbe` ($g_{\phi}$) or `LogitLens` projection—and optimizing $\mathcal{L}_{\text{probe}}$ via a disjoint optimizer step ($\nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}} = 0$)—our detachable tee + stop-gradient sidecar resolves Coconut's interpretability black-box problem with zero gradient interference on the primary $\mathbb{R}^d$ transition dynamics.
+
+### 2. Bounded $O(1)$ Trajectory Memory vs. Huginn / Recurrent Depth (Geiping et al., 2025) &amp; Looped Transformers (Giannou et al., 2023)
+**Looped Transformers** (Giannou et al., 2023) and recurrent-depth models such as **Huginn** (Geiping et al., 2025) scale test-time compute by looping transformer blocks $K$ times in latent space before token emission, which leads to unbounded $O(K d)$ activation memory growth if intermediate trajectories are retained for inspection. Unlike standard recurrent depth unrolling, our `RingBufferLatentTee` is implemented as a fixed-capacity circular buffer of size $M \le K$ ($O(1)$ memory overhead with respect to total recurrence depth $K$ during inference) paired with `enable_latent_tee=False` by default in production (`True` for mechanistic auditing)—strictly bounding activation memory while preserving on-demand mechanistic readouts of the latest $M$ recurrent transitions.
+
+### 3. Motivational Syntactic Control vs. Compressed CoT (TokenSkip, CCoT, Sketch-of-Thought)
+Compressed-CoT pipelines—including **CCoT** (Cheng &amp; Van Durme, 2024), **TokenSkip** (Xia et al., 2025), and **Sketch-of-Thought** (Aytes et al., 2025)—treat token pruning or abbreviated text sketching as the final inference efficiency method, continuing to pay $W_{\text{unembed}}$ projection FLOPs and KV-cache growth for every retained token. In GITLTYN, `telegraphic_cot` ([`experiments/src/prune_syntax.py`](https://github.com/ConstCorrectness/GITLTYN/blob/main/experiments/src/prune_syntax.py)) is kept strictly as a **motivational ablation baseline** alongside `verbose_cot` and budget-forced verbose CoT (`compute_matched` / `budget_forced_cot`). Telegraphic CoT is not our final proposed architecture; it serves as an empirical control proving that English grammatical scaffolding accounts for $64.6\%$–$67.1\%$ of emitted tokens with $< 1\%$ accuracy contribution, motivating the shift to pure $\mathbb{R}^d$ Continuous Latent Looping.
+
+## 6. Summary of Regime Trade-offs &amp; Deployment Guidelines
+
+Combining syntactic pruning (Ablation A), budget-forced truncation (Ablation B), and continuous latent recurrence with `RingBufferLatentTee` (Ablation C) yields a clear operational hierarchy for SLM reasoning deployments. Use Interactive Table 1 below to compare accuracy and resource telemetry across `0.6B`, `1.5B`, and `3B` models on GSM8K and MATH, toggle `95% CI Bounds` or `Logit` scaling, or switch between `Table` and `Graph` views:
+
+<div class="figure-full-bleed">
+  <RegimeSummaryWidget client:load />
+</div>
+
+<TakeawayBox
+  title="Practical Recommendation for Small Language Model Inference"
+  eyebrow="Systems Conclusion"
+  variant="probe"
+>
+  When modifying model weights is infeasible (black-box API or frozen checkpoint deployment), prompting or distilling for **Telegraphic CoT** recovers over **55%** of inference FLOPs and KV-cache capacity with negligible accuracy loss (${\le 0.6}$ percentage points). When lightweight adapter fine-tuning is available, **Continuous Latent Looping with `RingBufferLatentTee`** (`enable_latent_tee=False` in production; `True` for auditing) decouples reasoning depth $K$ from vocabulary serialization $W_{\text{unembed}}$, achieving higher accuracy than verbose CoT at roughly one-quarter of the compute budget while retaining bounded-memory, zero-interference post-hoc interpretability.
+</TakeawayBox>
+
+## References
+
+<div class="paper-references">
+
+1. **Ramachandran, D., &amp; Amir, E. (2007).** [*Bayesian Inverse Reinforcement Learning.*](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TJnfAvYAAAAJ&citation_for_view=TJnfAvYAAAAJ:u5HHmVD_uO8C) Proceedings of the 20th International Joint Conference on Artificial Intelligence (IJCAI 2007), pp. 2586–2591.
+2. **Hao, S., Sukhbaatar, S., Su, D., Li, X., Hu, Z., Weston, J., &amp; Yu, T. (2024).** [*Training Large Language Models to Reason in a Continuous Latent Space (Coconut).*](https://arxiv.org/abs/2412.06769) `arXiv:2412.06769`.
+3. **Geiping, J., McLeish, S., Jain, N., Kirchenbauer, J., Siddiqui, S., Khani, A., ... &amp; Goldstein, T. (2025).** [*Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach (Huginn).*](https://arxiv.org/abs/2502.05171) `arXiv:2502.05171`.
+4. **Giannou, A., Rajput, S., Sohn, J.-Y., Lee, K., Lee, J. D., &amp; Papailiopoulos, D. (2023).** [*Looped Transformers as Programmable Computers.*](https://arxiv.org/abs/2301.13196) Proceedings of ICML 2023 (`arXiv:2301.13196`).
+5. **Cheng, J., &amp; Van Durme, B. (2024).** [*Compressed Chain of Thought: Efficient Reasoning through Dense Representations (CCoT).*](https://arxiv.org/abs/2412.13171) `arXiv:2412.13171`.
+6. **Xia, H., Leong, C. T., Wang, W., Li, Y., &amp; Li, W. (2025).** [*TokenSkip: Controllable Chain-of-Thought Compression in LLMs.*](https://arxiv.org/abs/2502.12067) `arXiv:2502.12067`.
+7. **Aytes, S. A., Baek, J., &amp; Hwang, S. J. (2025).** [*Sketch-of-Thought: Efficient LLM Reasoning with Adaptive Cognitive-Inspired Sketching.*](https://arxiv.org/abs/2503.05179) `arXiv:2503.05179`.
+
+</div>

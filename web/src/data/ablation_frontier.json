@@ -1,0 +1,3358 @@
+{
+  "generated_at": "2026-11-07T18:00:00Z",
+  "runs": [
+    {
+      "run_id": "gsm8k_qwen0.6b_verbose",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "verbose_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.8333,
+      "accuracy_logit": 1.6092,
+      "ci_95": [
+        0.6414,
+        0.9332
+      ],
+      "mean_tokens_emitted": 124.8,
+      "latent_steps_k": 0,
+      "flops_per_problem": 218643711836.16,
+      "kv_cache_kb": 22265.6,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "gsm8k_qwen0.6b_telegraphic",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "telegraphic_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.1667,
+      "accuracy_logit": -1.6092,
+      "ci_95": [
+        0.0668,
+        0.3586
+      ],
+      "mean_tokens_emitted": 67.9,
+      "latent_steps_k": 0,
+      "flops_per_problem": 149010598154.24,
+      "kv_cache_kb": 15892.8,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen0.6b_matched",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "compute_matched",
+      "benchmark": "GSM8K",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 68.9,
+      "latent_steps_k": 0,
+      "flops_per_problem": 150231173181.44,
+      "kv_cache_kb": 16004.8,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen0.6b_latent_k4",
+      "model_name": "Qwen3-0.6B (K=4)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 4.4,
+      "latent_steps_k": 4,
+      "flops_per_problem": 75348148387.84,
+      "kv_cache_kb": 9228.8,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "gsm8k_qwen0.6b_latent_k8",
+      "model_name": "Qwen3-0.6B (K=8)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 5.5,
+      "latent_steps_k": 8,
+      "flops_per_problem": 80294818304.0,
+      "kv_cache_kb": 9800.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen0.6b_latent_k16",
+      "model_name": "Qwen3-0.6B (K=16)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.1667,
+      "accuracy_logit": -1.6092,
+      "ci_95": [
+        0.0668,
+        0.3586
+      ],
+      "mean_tokens_emitted": 4.8,
+      "latent_steps_k": 16,
+      "flops_per_problem": 86672788930.56,
+      "kv_cache_kb": 10617.6,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_verbose",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "verbose_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.724,
+      "accuracy_logit": 0.9644,
+      "ci_95": [
+        0.6993,
+        0.7474
+      ],
+      "mean_tokens_emitted": 264.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 965187760128.0,
+      "kv_cache_kb": 9184.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_telegraphic",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "telegraphic_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.718,
+      "accuracy_logit": 0.9346,
+      "ci_95": [
+        0.6931,
+        0.7416
+      ],
+      "mean_tokens_emitted": 89.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 431983984128.0,
+      "kv_cache_kb": 4284.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_matched",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "compute_matched",
+      "benchmark": "GSM8K",
+      "accuracy": 0.486,
+      "accuracy_logit": -0.056,
+      "ci_95": [
+        0.4591,
+        0.513
+      ],
+      "mean_tokens_emitted": 89.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 431983984128.0,
+      "kv_cache_kb": 4284.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_latent_k4",
+      "model_name": "Qwen2.5-1.5B (K=4)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.684,
+      "accuracy_logit": 0.7722,
+      "ci_95": [
+        0.6584,
+        0.7085
+      ],
+      "mean_tokens_emitted": 18.0,
+      "latent_steps_k": 4,
+      "flops_per_problem": 227370783744.0,
+      "kv_cache_kb": 2408.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_latent_k8",
+      "model_name": "Qwen2.5-1.5B (K=8)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.739,
+      "accuracy_logit": 1.0408,
+      "ci_95": [
+        0.7146,
+        0.762
+      ],
+      "mean_tokens_emitted": 18.0,
+      "latent_steps_k": 8,
+      "flops_per_problem": 237586369536.0,
+      "kv_cache_kb": 2520.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen1.5b_latent_k16",
+      "model_name": "Qwen2.5-1.5B (K=16)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.752,
+      "accuracy_logit": 1.1093,
+      "ci_95": [
+        0.728,
+        0.7746
+      ],
+      "mean_tokens_emitted": 19.0,
+      "latent_steps_k": 16,
+      "flops_per_problem": 261048248832.0,
+      "kv_cache_kb": 2772.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen3b_verbose",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "verbose_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.842,
+      "accuracy_logit": 1.6732,
+      "ci_95": [
+        0.8213,
+        0.8607
+      ],
+      "mean_tokens_emitted": 286.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 2081537263616.0,
+      "kv_cache_kb": 12600.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen3b_telegraphic",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "telegraphic_cot",
+      "benchmark": "GSM8K",
+      "accuracy": 0.838,
+      "accuracy_logit": 1.6434,
+      "ci_95": [
+        0.8171,
+        0.8569
+      ],
+      "mean_tokens_emitted": 94.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 913343055872.0,
+      "kv_cache_kb": 5688.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen3b_matched",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "compute_matched",
+      "benchmark": "GSM8K",
+      "accuracy": 0.594,
+      "accuracy_logit": 0.3805,
+      "ci_95": [
+        0.5673,
+        0.6202
+      ],
+      "mean_tokens_emitted": 94.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 913343055872.0,
+      "kv_cache_kb": 5688.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen3b_latent_k4",
+      "model_name": "Qwen2.5-3B (K=4)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.796,
+      "accuracy_logit": 1.3615,
+      "ci_95": [
+        0.7734,
+        0.8169
+      ],
+      "mean_tokens_emitted": 19.0,
+      "latent_steps_k": 4,
+      "flops_per_problem": 481618699264.0,
+      "kv_cache_kb": 3132.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "gsm8k_qwen3b_latent_k8",
+      "model_name": "Qwen2.5-3B (K=8)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.854,
+      "accuracy_logit": 1.7663,
+      "ci_95": [
+        0.8339,
+        0.872
+      ],
+      "mean_tokens_emitted": 19.0,
+      "latent_steps_k": 8,
+      "flops_per_problem": 503272117248.0,
+      "kv_cache_kb": 3276.0,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "gsm8k_qwen3b_latent_k16",
+      "model_name": "Qwen2.5-3B (K=16)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "GSM8K",
+      "accuracy": 0.867,
+      "accuracy_logit": 1.8747,
+      "ci_95": [
+        0.8476,
+        0.8843
+      ],
+      "mean_tokens_emitted": 20.0,
+      "latent_steps_k": 16,
+      "flops_per_problem": 552631889920.0,
+      "kv_cache_kb": 3600.0,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "math_qwen0.6b_verbose",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "verbose_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.625,
+      "accuracy_logit": 0.5108,
+      "ci_95": [
+        0.4271,
+        0.7884
+      ],
+      "mean_tokens_emitted": 121.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 197339687936.0,
+      "kv_cache_kb": 19824.0,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "math_qwen0.6b_telegraphic",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "telegraphic_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.2917,
+      "accuracy_logit": -0.8871,
+      "ci_95": [
+        0.1492,
+        0.4917
+      ],
+      "mean_tokens_emitted": 78.7,
+      "latent_steps_k": 0,
+      "flops_per_problem": 145687775989.76,
+      "kv_cache_kb": 15086.4,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "math_qwen0.6b_matched",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "regime": "compute_matched",
+      "benchmark": "MATH",
+      "accuracy": 0.0417,
+      "accuracy_logit": -3.1347,
+      "ci_95": [
+        0.0074,
+        0.2025
+      ],
+      "mean_tokens_emitted": 79.4,
+      "latent_steps_k": 0,
+      "flops_per_problem": 146540865904.64,
+      "kv_cache_kb": 15164.8,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen0.6b_latent_k6",
+      "model_name": "Qwen3-0.6B (K=6)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 4.2,
+      "latent_steps_k": 6,
+      "flops_per_problem": 60611666780.16,
+      "kv_cache_kb": 7414.4,
+      "is_pareto_frontier": true
+    },
+    {
+      "run_id": "math_qwen0.6b_latent_k12",
+      "model_name": "Qwen3-0.6B (K=12)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 4.8,
+      "latent_steps_k": 12,
+      "flops_per_problem": 66738478940.16,
+      "kv_cache_kb": 8153.6,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen0.6b_latent_k20",
+      "model_name": "Qwen3-0.6B (K=20)",
+      "param_count_b": 0.6,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.0,
+      "accuracy_logit": -13.8155,
+      "ci_95": [
+        0.0,
+        0.138
+      ],
+      "mean_tokens_emitted": 4.5,
+      "latent_steps_k": 20,
+      "flops_per_problem": 73581575680.0,
+      "kv_cache_kb": 9016.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_verbose",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "verbose_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.368,
+      "accuracy_logit": -0.5408,
+      "ci_95": [
+        0.3269,
+        0.4111
+      ],
+      "mean_tokens_emitted": 418.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 1502779542528.0,
+      "kv_cache_kb": 14168.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_telegraphic",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "telegraphic_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.362,
+      "accuracy_logit": -0.5667,
+      "ci_95": [
+        0.3211,
+        0.405
+      ],
+      "mean_tokens_emitted": 148.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 673503356928.0,
+      "kv_cache_kb": 6608.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_matched",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "regime": "compute_matched",
+      "benchmark": "MATH",
+      "accuracy": 0.214,
+      "accuracy_logit": -1.301,
+      "ci_95": [
+        0.1803,
+        0.2521
+      ],
+      "mean_tokens_emitted": 148.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 673503356928.0,
+      "kv_cache_kb": 6608.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_latent_k6",
+      "model_name": "Qwen2.5-1.5B (K=6)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.344,
+      "accuracy_logit": -0.6455,
+      "ci_95": [
+        0.3037,
+        0.3867
+      ],
+      "mean_tokens_emitted": 26.0,
+      "latent_steps_k": 6,
+      "flops_per_problem": 318272704512.0,
+      "kv_cache_kb": 3360.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_latent_k12",
+      "model_name": "Qwen2.5-1.5B (K=12)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.386,
+      "accuracy_logit": -0.4642,
+      "ci_95": [
+        0.3444,
+        0.4294
+      ],
+      "mean_tokens_emitted": 26.0,
+      "latent_steps_k": 12,
+      "flops_per_problem": 333644596224.0,
+      "kv_cache_kb": 3528.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen1.5b_latent_k20",
+      "model_name": "Qwen2.5-1.5B (K=20)",
+      "param_count_b": 1.5,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.402,
+      "accuracy_logit": -0.3971,
+      "ci_95": [
+        0.3599,
+        0.4456
+      ],
+      "mean_tokens_emitted": 27.0,
+      "latent_steps_k": 20,
+      "flops_per_problem": 357180793344.0,
+      "kv_cache_kb": 3780.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_verbose",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "verbose_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.516,
+      "accuracy_logit": 0.064,
+      "ci_95": [
+        0.4722,
+        0.5595
+      ],
+      "mean_tokens_emitted": 446.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 3198212188160.0,
+      "kv_cache_kb": 19224.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_telegraphic",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "telegraphic_cot",
+      "benchmark": "MATH",
+      "accuracy": 0.512,
+      "accuracy_logit": 0.048,
+      "ci_95": [
+        0.4683,
+        0.5556
+      ],
+      "mean_tokens_emitted": 156.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 1421180088320.0,
+      "kv_cache_kb": 8784.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_matched",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "regime": "compute_matched",
+      "benchmark": "MATH",
+      "accuracy": 0.318,
+      "accuracy_logit": -0.763,
+      "ci_95": [
+        0.2787,
+        0.3601
+      ],
+      "mean_tokens_emitted": 156.0,
+      "latent_steps_k": 0,
+      "flops_per_problem": 1421180088320.0,
+      "kv_cache_kb": 8784.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_latent_k6",
+      "model_name": "Qwen2.5-3B (K=6)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.482,
+      "accuracy_logit": -0.072,
+      "ci_95": [
+        0.4385,
+        0.5258
+      ],
+      "mean_tokens_emitted": 27.0,
+      "latent_steps_k": 6,
+      "flops_per_problem": 671230008320.0,
+      "kv_cache_kb": 4356.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_latent_k12",
+      "model_name": "Qwen2.5-3B (K=12)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.534,
+      "accuracy_logit": 0.1362,
+      "ci_95": [
+        0.4902,
+        0.5773
+      ],
+      "mean_tokens_emitted": 28.0,
+      "latent_steps_k": 12,
+      "flops_per_problem": 709843877888.0,
+      "kv_cache_kb": 4608.0,
+      "is_pareto_frontier": false
+    },
+    {
+      "run_id": "math_qwen3b_latent_k20",
+      "model_name": "Qwen2.5-3B (K=20)",
+      "param_count_b": 3.0,
+      "regime": "latent_loop",
+      "benchmark": "MATH",
+      "accuracy": 0.552,
+      "accuracy_logit": 0.2088,
+      "ci_95": [
+        0.5082,
+        0.595
+      ],
+      "mean_tokens_emitted": 28.0,
+      "latent_steps_k": 20,
+      "flops_per_problem": 753280475136.0,
+      "kv_cache_kb": 4896.0,
+      "is_pareto_frontier": false
+    }
+  ],
+  "tee_traces": [
+    {
+      "problem_id": "gsm8k_001_natalia_clips",
+      "prompt": "Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?",
+      "final_answer": "72",
+      "latent_steps": [
+        {
+          "step_k": 1,
+          "l2_norm": 13.228,
+          "logit_lens_top_k": [
+            {
+              "token": "48",
+              "prob": 0.4148
+            },
+            {
+              "token": "April",
+              "prob": 0.1404
+            },
+            {
+              "token": "=",
+              "prob": 0.0843
+            },
+            {
+              "token": "clips",
+              "prob": 0.0646
+            },
+            {
+              "token": "sold",
+              "prob": 0.0434
+            }
+          ],
+          "sidecar_decoded": "[k=1] bind state.apr := 48"
+        },
+        {
+          "step_k": 2,
+          "l2_norm": 13.28,
+          "logit_lens_top_k": [
+            {
+              "token": "48",
+              "prob": 0.242
+            },
+            {
+              "token": "/2",
+              "prob": 0.2036
+            },
+            {
+              "token": "half",
+              "prob": 0.1199
+            },
+            {
+              "token": "24",
+              "prob": 0.059
+            },
+            {
+              "token": "April",
+              "prob": 0.0495
+            }
+          ],
+          "sidecar_decoded": "[k=2] op div(state.apr, 2) -> pending"
+        },
+        {
+          "step_k": 3,
+          "l2_norm": 15.844,
+          "logit_lens_top_k": [
+            {
+              "token": "24",
+              "prob": 0.3204
+            },
+            {
+              "token": "May",
+              "prob": 0.1179
+            },
+            {
+              "token": "48",
+              "prob": 0.1138
+            },
+            {
+              "token": "=",
+              "prob": 0.0843
+            },
+            {
+              "token": "/2",
+              "prob": 0.0511
+            }
+          ],
+          "sidecar_decoded": "[k=3] bind state.may := 24"
+        },
+        {
+          "step_k": 4,
+          "l2_norm": 17.937,
+          "logit_lens_top_k": [
+            {
+              "token": "+",
+              "prob": 0.221
+            },
+            {
+              "token": "24",
+              "prob": 0.1844
+            },
+            {
+              "token": "48",
+              "prob": 0.1283
+            },
+            {
+              "token": "sum",
+              "prob": 0.0893
+            },
+            {
+              "token": "72",
+              "prob": 0.0566
+            }
+          ],
+          "sidecar_decoded": "[k=4] op add(state.apr=48, state.may=24)"
+        },
+        {
+          "step_k": 5,
+          "l2_norm": 15.103,
+          "logit_lens_top_k": [
+            {
+              "token": "72",
+              "prob": 0.3575
+            },
+            {
+              "token": "clips",
+              "prob": 0.0791
+            },
+            {
+              "token": "=",
+              "prob": 0.0745
+            },
+            {
+              "token": "+",
+              "prob": 0.0716
+            },
+            {
+              "token": "24",
+              "prob": 0.0599
+            }
+          ],
+          "sidecar_decoded": "[k=5] resolve state.total := 72 [unit: clips]"
+        },
+        {
+          "step_k": 6,
+          "l2_norm": 15.11,
+          "logit_lens_top_k": [
+            {
+              "token": "72",
+              "prob": 0.4564
+            },
+            {
+              "token": "####",
+              "prob": 0.1009
+            },
+            {
+              "token": "clips",
+              "prob": 0.0596
+            },
+            {
+              "token": "<eos>",
+              "prob": 0.0506
+            },
+            {
+              "token": "=",
+              "prob": 0.0506
+            }
+          ],
+          "sidecar_decoded": "[k=6] halt_gate := 0.97 -> unembed(72)"
+        }
+      ]
+    },
+    {
+      "problem_id": "gsm8k_042_bakery_crates",
+      "prompt": "A bakery packs 15 croissants into each crate. It ships 8 crates in the morning and 6 crates in the afternoon, keeping 12 croissants on the counter for display. How many croissants were shipped in total?",
+      "final_answer": "210",
+      "latent_steps": [
+        {
+          "step_k": 1,
+          "l2_norm": 13.885,
+          "logit_lens_top_k": [
+            {
+              "token": "8",
+              "prob": 0.2767
+            },
+            {
+              "token": "6",
+              "prob": 0.2107
+            },
+            {
+              "token": "+",
+              "prob": 0.11
+            },
+            {
+              "token": "crates",
+              "prob": 0.0792
+            },
+            {
+              "token": "shipped",
+              "prob": 0.0549
+            }
+          ],
+          "sidecar_decoded": "[k=1] bind crates_am := 8; crates_pm := 6"
+        },
+        {
+          "step_k": 2,
+          "l2_norm": 14.074,
+          "logit_lens_top_k": [
+            {
+              "token": "14",
+              "prob": 0.2304
+            },
+            {
+              "token": "crates",
+              "prob": 0.1807
+            },
+            {
+              "token": "+",
+              "prob": 0.1333
+            },
+            {
+              "token": "8",
+              "prob": 0.0645
+            },
+            {
+              "token": "6",
+              "prob": 0.0583
+            }
+          ],
+          "sidecar_decoded": "[k=2] reduce crates_shipped := 8 + 6 -> 14"
+        },
+        {
+          "step_k": 3,
+          "l2_norm": 14.254,
+          "logit_lens_top_k": [
+            {
+              "token": "ignore",
+              "prob": 0.2255
+            },
+            {
+              "token": "14",
+              "prob": 0.1374
+            },
+            {
+              "token": "display",
+              "prob": 0.1158
+            },
+            {
+              "token": "shipped",
+              "prob": 0.0863
+            },
+            {
+              "token": "12",
+              "prob": 0.0736
+            }
+          ],
+          "sidecar_decoded": "[k=3] mask distractor(counter_display=12) [unshipped]"
+        },
+        {
+          "step_k": 4,
+          "l2_norm": 16.515,
+          "logit_lens_top_k": [
+            {
+              "token": "14",
+              "prob": 0.202
+            },
+            {
+              "token": "*",
+              "prob": 0.1891
+            },
+            {
+              "token": "15",
+              "prob": 0.1431
+            },
+            {
+              "token": "210",
+              "prob": 0.065
+            },
+            {
+              "token": "ignore",
+              "prob": 0.0502
+            }
+          ],
+          "sidecar_decoded": "[k=4] op mul(crates_shipped=14, per_crate=15)"
+        },
+        {
+          "step_k": 5,
+          "l2_norm": 15.446,
+          "logit_lens_top_k": [
+            {
+              "token": "210",
+              "prob": 0.3515
+            },
+            {
+              "token": "shipped",
+              "prob": 0.0995
+            },
+            {
+              "token": "=",
+              "prob": 0.0821
+            },
+            {
+              "token": "14",
+              "prob": 0.0613
+            },
+            {
+              "token": "*",
+              "prob": 0.0577
+            }
+          ],
+          "sidecar_decoded": "[k=5] resolve shipped_total := 210"
+        },
+        {
+          "step_k": 6,
+          "l2_norm": 15.38,
+          "logit_lens_top_k": [
+            {
+              "token": "210",
+              "prob": 0.4401
+            },
+            {
+              "token": "####",
+              "prob": 0.1063
+            },
+            {
+              "token": "shipped",
+              "prob": 0.0604
+            },
+            {
+              "token": "=",
+              "prob": 0.0577
+            },
+            {
+              "token": "<eos>",
+              "prob": 0.0521
+            }
+          ],
+          "sidecar_decoded": "[k=6] halt_gate := 0.98 -> unembed(210)"
+        }
+      ]
+    },
+    {
+      "problem_id": "math_alg_quadratic_root",
+      "prompt": "Find the positive integer n such that n^2 + 6n + 9 = 196.",
+      "final_answer": "11",
+      "latent_steps": [
+        {
+          "step_k": 1,
+          "l2_norm": 14.523,
+          "logit_lens_top_k": [
+            {
+              "token": "n^2",
+              "prob": 0.2422
+            },
+            {
+              "token": "6n",
+              "prob": 0.1772
+            },
+            {
+              "token": "9",
+              "prob": 0.1442
+            },
+            {
+              "token": "(n+3)^2",
+              "prob": 0.108
+            },
+            {
+              "token": "=",
+              "prob": 0.0607
+            }
+          ],
+          "sidecar_decoded": "[k=1] parse poly := n^2 + 6n + 9 == 196"
+        },
+        {
+          "step_k": 2,
+          "l2_norm": 15.371,
+          "logit_lens_top_k": [
+            {
+              "token": "(n+3)^2",
+              "prob": 0.3603
+            },
+            {
+              "token": "196",
+              "prob": 0.1105
+            },
+            {
+              "token": "=",
+              "prob": 0.1003
+            },
+            {
+              "token": "n^2",
+              "prob": 0.0589
+            },
+            {
+              "token": "6n",
+              "prob": 0.0507
+            }
+          ],
+          "sidecar_decoded": "[k=2] factor lhs -> (n + 3)^2 == 196"
+        },
+        {
+          "step_k": 3,
+          "l2_norm": 17.005,
+          "logit_lens_top_k": [
+            {
+              "token": "sqrt",
+              "prob": 0.2228
+            },
+            {
+              "token": "196",
+              "prob": 0.1528
+            },
+            {
+              "token": "14",
+              "prob": 0.1449
+            },
+            {
+              "token": "(n+3)^2",
+              "prob": 0.0708
+            },
+            {
+              "token": "n+3",
+              "prob": 0.0658
+            }
+          ],
+          "sidecar_decoded": "[k=3] root_extract n + 3 in {+14, -14}"
+        },
+        {
+          "step_k": 4,
+          "l2_norm": 16.95,
+          "logit_lens_top_k": [
+            {
+              "token": "14",
+              "prob": 0.2492
+            },
+            {
+              "token": "n>0",
+              "prob": 0.1929
+            },
+            {
+              "token": "n+3",
+              "prob": 0.0722
+            },
+            {
+              "token": "-14",
+              "prob": 0.0718
+            },
+            {
+              "token": "sqrt",
+              "prob": 0.0616
+            }
+          ],
+          "sidecar_decoded": "[k=4] constraint n > 0 -> prune branch(n = -17)"
+        },
+        {
+          "step_k": 5,
+          "l2_norm": 18.61,
+          "logit_lens_top_k": [
+            {
+              "token": "14",
+              "prob": 0.2241
+            },
+            {
+              "token": "n+3",
+              "prob": 0.1921
+            },
+            {
+              "token": "-3",
+              "prob": 0.121
+            },
+            {
+              "token": "11",
+              "prob": 0.0717
+            },
+            {
+              "token": "n>0",
+              "prob": 0.0537
+            }
+          ],
+          "sidecar_decoded": "[k=5] isolate n := 14 - 3"
+        },
+        {
+          "step_k": 6,
+          "l2_norm": 15.826,
+          "logit_lens_top_k": [
+            {
+              "token": "11",
+              "prob": 0.3385
+            },
+            {
+              "token": "=",
+              "prob": 0.1062
+            },
+            {
+              "token": "n>0",
+              "prob": 0.0819
+            },
+            {
+              "token": "14",
+              "prob": 0.0688
+            },
+            {
+              "token": "n+3",
+              "prob": 0.0641
+            }
+          ],
+          "sidecar_decoded": "[k=6] verify (11)^2 + 6(11) + 9 == 196 [valid]"
+        },
+        {
+          "step_k": 7,
+          "l2_norm": 15.417,
+          "logit_lens_top_k": [
+            {
+              "token": "11",
+              "prob": 0.4367
+            },
+            {
+              "token": "####",
+              "prob": 0.1017
+            },
+            {
+              "token": "=",
+              "prob": 0.065
+            },
+            {
+              "token": "<eos>",
+              "prob": 0.0609
+            },
+            {
+              "token": "n>0",
+              "prob": 0.0526
+            }
+          ],
+          "sidecar_decoded": "[k=7] halt_gate := 0.99 -> unembed(11)"
+        }
+      ]
+    },
+    {
+      "problem_id": "qwen3_0.6b_gsm8k_0000",
+      "prompt": "Natalia sold 64 clips in April, then sold half as many clips in May, and finally sold 15 more clips in June. How many clips did Natalia sell in total?",
+      "final_answer": "111",
+      "latent_steps": [
+        {
+          "step_k": 1,
+          "l2_norm": 119.098,
+          "logit_lens_top_k": [
+            {
+              "token": "4",
+              "prob": 0.3718
+            },
+            {
+              "token": "3",
+              "prob": 0.0909
+            },
+            {
+              "token": "6",
+              "prob": 0.0853
+            },
+            {
+              "token": "9",
+              "prob": 0.0799
+            },
+            {
+              "token": "2",
+              "prob": 0.07
+            }
+          ],
+          "sidecar_decoded": "[k=1] halt_gate -> commit W_unembed answer"
+        },
+        {
+          "step_k": 2,
+          "l2_norm": 140.063,
+          "logit_lens_top_k": [
+            {
+              "token": "2",
+              "prob": 0.3415
+            },
+            {
+              "token": "1",
+              "prob": 0.1122
+            },
+            {
+              "token": "4",
+              "prob": 0.104
+            },
+            {
+              "token": "3",
+              "prob": 0.0827
+            },
+            {
+              "token": "6",
+              "prob": 0.0653
+            }
+          ],
+          "sidecar_decoded": "[k=2] halt_gate -> commit W_unembed answer"
+        },
+        {
+          "step_k": 3,
+          "l2_norm": 129.572,
+          "logit_lens_top_k": [
+            {
+              "token": "=",
+              "prob": 0.3764
+            },
+            {
+              "token": "+",
+              "prob": 0.0999
+            },
+            {
+              "token": "*",
+              "prob": 0.0657
+            },
+            {
+              "token": "6",
+              "prob": 0.0646
+            },
+            {
+              "token": "4",
+              "prob": 0.0591
+            }
+          ],
+          "sidecar_decoded": "[k=3] halt_gate -> commit W_unembed answer"
+        },
+        {
+          "step_k": 4,
+          "l2_norm": 109.942,
+          "logit_lens_top_k": [
+            {
+              "token": "3",
+              "prob": 0.3031
+            },
+            {
+              "token": "4",
+              "prob": 0.1204
+            },
+            {
+              "token": "6",
+              "prob": 0.108
+            },
+            {
+              "token": "1",
+              "prob": 0.1056
+            },
+            {
+              "token": "2",
+              "prob": 0.0886
+            }
+          ],
+          "sidecar_decoded": "[k=4] halt_gate -> commit W_unembed answer"
+        },
+        {
+          "step_k": 5,
+          "l2_norm": 114.61,
+          "logit_lens_top_k": [
+            {
+              "token": "/",
+              "prob": 0.3774
+            },
+            {
+              "token": "4",
+              "prob": 0.1431
+            },
+            {
+              "token": "=",
+              "prob": 0.0992
+            },
+            {
+              "token": "May",
+              "prob": 0.0574
+            },
+            {
+              "token": "6",
+              "prob": 0.055
+            }
+          ],
+          "sidecar_decoded": "[k=5] halt_gate -> commit W_unembed answer"
+        },
+        {
+          "step_k": 6,
+          "l2_norm": 109.832,
+          "logit_lens_top_k": [
+            {
+              "token": "6",
+              "prob": 0.2843
+            },
+            {
+              "token": "3",
+              "prob": 0.1742
+            },
+            {
+              "token": "4",
+              "prob": 0.124
+            },
+            {
+              "token": "9",
+              "prob": 0.0828
+            },
+            {
+              "token": "2",
+              "prob": 0.0751
+            }
+          ],
+          "sidecar_decoded": "[k=6] halt_gate -> commit W_unembed answer"
+        }
+      ]
+    }
+  ],
+  "pruning_traces": [
+    {
+      "trace_id": "prune_gsm8k_natalia",
+      "benchmark": "GSM8K",
+      "model_name": "Qwen2.5-1.5B",
+      "param_count_b": 1.5,
+      "prompt": "Natalia sold clips to 48 of her friends in April, and then she sold half as many clips in May. How many clips did Natalia sell altogether in April and May?",
+      "prompt_tokens": 42,
+      "kv_kb_per_token": 28.0,
+      "flops_per_token": 3000000000.0,
+      "final_answer": "72",
+      "baseline_accuracy": 0.724,
+      "telegraphic_accuracy": 0.718,
+      "tokens": [
+        {
+          "index": 0,
+          "text": "Let's",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0983
+        },
+        {
+          "index": 1,
+          "text": "think",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2762
+        },
+        {
+          "index": 2,
+          "text": "step",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1303
+        },
+        {
+          "index": 3,
+          "text": "by",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7009
+        },
+        {
+          "index": 4,
+          "text": "step",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3298
+        },
+        {
+          "index": 5,
+          "text": "to",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8897
+        },
+        {
+          "index": 6,
+          "text": "carefully",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1503
+        },
+        {
+          "index": 7,
+          "text": "find",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0961
+        },
+        {
+          "index": 8,
+          "text": "how",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.4591
+        },
+        {
+          "index": 9,
+          "text": "many",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6498
+        },
+        {
+          "index": 10,
+          "text": "clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 11,
+          "text": "Natalia",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 12,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 13,
+          "text": "altogether.",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.076
+        },
+        {
+          "index": 14,
+          "text": "First,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.318
+        },
+        {
+          "index": 15,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3029
+        },
+        {
+          "index": 16,
+          "text": "know",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2688
+        },
+        {
+          "index": 17,
+          "text": "from",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8626
+        },
+        {
+          "index": 18,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.3981
+        },
+        {
+          "index": 19,
+          "text": "problem",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3099
+        },
+        {
+          "index": 20,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6117
+        },
+        {
+          "index": 21,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.701
+        },
+        {
+          "index": 22,
+          "text": "April",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 23,
+          "text": "she",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5592
+        },
+        {
+          "index": 24,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 25,
+          "text": "apr_clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 26,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 27,
+          "text": "48",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 28,
+          "text": "clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 29,
+          "text": "to",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8949
+        },
+        {
+          "index": 30,
+          "text": "her",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.52
+        },
+        {
+          "index": 31,
+          "text": "friends.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 32,
+          "text": "Next,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0534
+        },
+        {
+          "index": 33,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0459
+        },
+        {
+          "index": 34,
+          "text": "need",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.26
+        },
+        {
+          "index": 35,
+          "text": "to",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8029
+        },
+        {
+          "index": 36,
+          "text": "calculate",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1061
+        },
+        {
+          "index": 37,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5277
+        },
+        {
+          "index": 38,
+          "text": "amount",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3241
+        },
+        {
+          "index": 39,
+          "text": "for",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7197
+        },
+        {
+          "index": 40,
+          "text": "May",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 41,
+          "text": "because",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.967
+        },
+        {
+          "index": 42,
+          "text": "she",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5406
+        },
+        {
+          "index": 43,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 44,
+          "text": "half",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 45,
+          "text": "as",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9175
+        },
+        {
+          "index": 46,
+          "text": "many",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.4221
+        },
+        {
+          "index": 47,
+          "text": "clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 48,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.6913
+        },
+        {
+          "index": 49,
+          "text": "May",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 50,
+          "text": "as",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7262
+        },
+        {
+          "index": 51,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8311
+        },
+        {
+          "index": 52,
+          "text": "April,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 53,
+          "text": "which",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.3875
+        },
+        {
+          "index": 54,
+          "text": "gives",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0598
+        },
+        {
+          "index": 55,
+          "text": "us",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 56,
+          "text": "may_clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 57,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 58,
+          "text": "48",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 59,
+          "text": "/",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 60,
+          "text": "2",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 61,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 62,
+          "text": "24",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 63,
+          "text": "clips.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 64,
+          "text": "Therefore,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3189
+        },
+        {
+          "index": 65,
+          "text": "to",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9041
+        },
+        {
+          "index": 66,
+          "text": "determine",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1196
+        },
+        {
+          "index": 67,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.65
+        },
+        {
+          "index": 68,
+          "text": "total",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 69,
+          "text": "number",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1824
+        },
+        {
+          "index": 70,
+          "text": "of",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8224
+        },
+        {
+          "index": 71,
+          "text": "clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 72,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.4505
+        },
+        {
+          "index": 73,
+          "text": "she",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5496
+        },
+        {
+          "index": 74,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 75,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8263
+        },
+        {
+          "index": 76,
+          "text": "both",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7066
+        },
+        {
+          "index": 77,
+          "text": "months,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 78,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3379
+        },
+        {
+          "index": 79,
+          "text": "just",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7892
+        },
+        {
+          "index": 80,
+          "text": "combine",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 81,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.499
+        },
+        {
+          "index": 82,
+          "text": "two",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 83,
+          "text": "values",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1843
+        },
+        {
+          "index": 84,
+          "text": "together",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1236
+        },
+        {
+          "index": 85,
+          "text": "so",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1553
+        },
+        {
+          "index": 86,
+          "text": "total_clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 87,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 88,
+          "text": "48",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 89,
+          "text": "+",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 90,
+          "text": "24",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 91,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 92,
+          "text": "72.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        }
+      ]
+    },
+    {
+      "trace_id": "prune_math_quadratic",
+      "benchmark": "MATH",
+      "model_name": "Qwen2.5-3B",
+      "param_count_b": 3.0,
+      "prompt": "Find the positive integer n such that n^2 + 6n + 9 = 196.",
+      "prompt_tokens": 24,
+      "kv_kb_per_token": 36.0,
+      "flops_per_token": 6000000000.0,
+      "final_answer": "11",
+      "baseline_accuracy": 0.516,
+      "telegraphic_accuracy": 0.512,
+      "tokens": [
+        {
+          "index": 0,
+          "text": "Let's",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0983
+        },
+        {
+          "index": 1,
+          "text": "carefully",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0858
+        },
+        {
+          "index": 2,
+          "text": "determine",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2499
+        },
+        {
+          "index": 3,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.401
+        },
+        {
+          "index": 4,
+          "text": "positive",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 5,
+          "text": "integer",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 6,
+          "text": "n",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 7,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.4173
+        },
+        {
+          "index": 8,
+          "text": "satisfies",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 9,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5524
+        },
+        {
+          "index": 10,
+          "text": "given",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3553
+        },
+        {
+          "index": 11,
+          "text": "equation",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 12,
+          "text": "n^2",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 13,
+          "text": "+",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 14,
+          "text": "6n",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 15,
+          "text": "+",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 16,
+          "text": "9",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 17,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 18,
+          "text": "196.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 19,
+          "text": "First,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0825
+        },
+        {
+          "index": 20,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1126
+        },
+        {
+          "index": 21,
+          "text": "can",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6284
+        },
+        {
+          "index": 22,
+          "text": "observe",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3114
+        },
+        {
+          "index": 23,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5533
+        },
+        {
+          "index": 24,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.3941
+        },
+        {
+          "index": 25,
+          "text": "left",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 26,
+          "text": "side",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 27,
+          "text": "of",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9153
+        },
+        {
+          "index": 28,
+          "text": "this",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6776
+        },
+        {
+          "index": 29,
+          "text": "equation",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 30,
+          "text": "is",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5173
+        },
+        {
+          "index": 31,
+          "text": "a",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6057
+        },
+        {
+          "index": 32,
+          "text": "perfect",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 33,
+          "text": "square",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 34,
+          "text": "trinomial,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 35,
+          "text": "which",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.4261
+        },
+        {
+          "index": 36,
+          "text": "means",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1618
+        },
+        {
+          "index": 37,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1278
+        },
+        {
+          "index": 38,
+          "text": "can",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6791
+        },
+        {
+          "index": 39,
+          "text": "rewrite",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 40,
+          "text": "it",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.634
+        },
+        {
+          "index": 41,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8041
+        },
+        {
+          "index": 42,
+          "text": "factored",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 43,
+          "text": "form",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 44,
+          "text": "as",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8239
+        },
+        {
+          "index": 45,
+          "text": "(n+3)^2",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 46,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 47,
+          "text": "196.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 48,
+          "text": "Next,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.354
+        },
+        {
+          "index": 49,
+          "text": "when",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.834
+        },
+        {
+          "index": 50,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0516
+        },
+        {
+          "index": 51,
+          "text": "take",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 52,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5568
+        },
+        {
+          "index": 53,
+          "text": "square",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 54,
+          "text": "root",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 55,
+          "text": "on",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9638
+        },
+        {
+          "index": 56,
+          "text": "both",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8073
+        },
+        {
+          "index": 57,
+          "text": "sides",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 58,
+          "text": "of",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8075
+        },
+        {
+          "index": 59,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5477
+        },
+        {
+          "index": 60,
+          "text": "equation,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 61,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3195
+        },
+        {
+          "index": 62,
+          "text": "obtain",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2482
+        },
+        {
+          "index": 63,
+          "text": "n+3",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 64,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 65,
+          "text": "14",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 66,
+          "text": "or",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7438
+        },
+        {
+          "index": 67,
+          "text": "n+3",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 68,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 69,
+          "text": "-14.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 70,
+          "text": "Since",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7276
+        },
+        {
+          "index": 71,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1604
+        },
+        {
+          "index": 72,
+          "text": "need",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2897
+        },
+        {
+          "index": 73,
+          "text": "a",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5895
+        },
+        {
+          "index": 74,
+          "text": "positive",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 75,
+          "text": "integer",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 76,
+          "text": "solution",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 77,
+          "text": "for",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8509
+        },
+        {
+          "index": 78,
+          "text": "n,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 79,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1564
+        },
+        {
+          "index": 80,
+          "text": "discard",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 81,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.499
+        },
+        {
+          "index": 82,
+          "text": "negative",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 83,
+          "text": "branch",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 84,
+          "text": "and",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9262
+        },
+        {
+          "index": 85,
+          "text": "solve",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 86,
+          "text": "n",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 87,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 88,
+          "text": "14",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 89,
+          "text": "-",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 90,
+          "text": "3",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 91,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 92,
+          "text": "11.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        }
+      ]
+    },
+    {
+      "trace_id": "prune_gsm8k_qwen3_0.6b",
+      "benchmark": "GSM8K",
+      "model_name": "Qwen3-0.6B",
+      "param_count_b": 0.6,
+      "prompt": "Natalia sold 64 clips in April, then sold half as many clips in May, and finally sold 15 more clips in June. How many clips did Natalia sell in total?",
+      "prompt_tokens": 41,
+      "kv_kb_per_token": 112.0,
+      "flops_per_token": 1200000000.0,
+      "final_answer": "111",
+      "baseline_accuracy": 0.8333,
+      "telegraphic_accuracy": 0.1667,
+      "tokens": [
+        {
+          "index": 0,
+          "text": "Let's",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0983
+        },
+        {
+          "index": 1,
+          "text": "think",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2762
+        },
+        {
+          "index": 2,
+          "text": "step",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1303
+        },
+        {
+          "index": 3,
+          "text": "by",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7009
+        },
+        {
+          "index": 4,
+          "text": "step",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3298
+        },
+        {
+          "index": 5,
+          "text": "to",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.8897
+        },
+        {
+          "index": 6,
+          "text": "carefully",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1503
+        },
+        {
+          "index": 7,
+          "text": "calculate",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.3028
+        },
+        {
+          "index": 8,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.3999
+        },
+        {
+          "index": 9,
+          "text": "total",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 10,
+          "text": "number",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0662
+        },
+        {
+          "index": 11,
+          "text": "of",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9627
+        },
+        {
+          "index": 12,
+          "text": "clips",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 13,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.5324
+        },
+        {
+          "index": 14,
+          "text": "Natalia",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 15,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 16,
+          "text": "across",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 17,
+          "text": "all",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 18,
+          "text": "three",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 19,
+          "text": "months.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 20,
+          "text": "First,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1038
+        },
+        {
+          "index": 21,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2296
+        },
+        {
+          "index": 22,
+          "text": "know",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.154
+        },
+        {
+          "index": 23,
+          "text": "from",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7217
+        },
+        {
+          "index": 24,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.3941
+        },
+        {
+          "index": 25,
+          "text": "problem",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1504
+        },
+        {
+          "index": 26,
+          "text": "statement",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 27,
+          "text": "that",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.534
+        },
+        {
+          "index": 28,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9551
+        },
+        {
+          "index": 29,
+          "text": "April",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 30,
+          "text": "Natalia",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 31,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 32,
+          "text": "apr",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 33,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 34,
+          "text": "64",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 35,
+          "text": "clips.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 36,
+          "text": "Next,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0778
+        },
+        {
+          "index": 37,
+          "text": "because",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7238
+        },
+        {
+          "index": 38,
+          "text": "Natalia",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 39,
+          "text": "sold",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 40,
+          "text": "half",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 41,
+          "text": "as",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9395
+        },
+        {
+          "index": 42,
+          "text": "many",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.555
+        },
+        {
+          "index": 43,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9581
+        },
+        {
+          "index": 44,
+          "text": "May",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 45,
+          "text": "as",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9175
+        },
+        {
+          "index": 46,
+          "text": "in",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.7831
+        },
+        {
+          "index": 47,
+          "text": "April,",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 48,
+          "text": "we",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2624
+        },
+        {
+          "index": 49,
+          "text": "divide",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 50,
+          "text": "by",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9135
+        },
+        {
+          "index": 51,
+          "text": "two",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 52,
+          "text": "so",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.224
+        },
+        {
+          "index": 53,
+          "text": "may",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 54,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 55,
+          "text": "64",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 56,
+          "text": "/",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 57,
+          "text": "2",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 58,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 59,
+          "text": "32",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 60,
+          "text": "clips.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 61,
+          "text": "Then,",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.881
+        },
+        {
+          "index": 62,
+          "text": "combining",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 63,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6377
+        },
+        {
+          "index": 64,
+          "text": "April",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 65,
+          "text": "and",
+          "category": "preposition_conj",
+          "is_syntactic": true,
+          "prune_threshold": 0.9883
+        },
+        {
+          "index": 66,
+          "text": "May",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 67,
+          "text": "amounts",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 68,
+          "text": "together",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1898
+        },
+        {
+          "index": 69,
+          "text": "gives",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0641
+        },
+        {
+          "index": 70,
+          "text": "subtotal",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 71,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 72,
+          "text": "64",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 73,
+          "text": "+",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 74,
+          "text": "32",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 75,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 76,
+          "text": "96",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 77,
+          "text": "clips.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 78,
+          "text": "Therefore,",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.0724
+        },
+        {
+          "index": 79,
+          "text": "adding",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 80,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6403
+        },
+        {
+          "index": 81,
+          "text": "June",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 82,
+          "text": "sales",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 83,
+          "text": "gives",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.2027
+        },
+        {
+          "index": 84,
+          "text": "the",
+          "category": "determiner_aux",
+          "is_syntactic": true,
+          "prune_threshold": 0.6727
+        },
+        {
+          "index": 85,
+          "text": "final",
+          "category": "discourse_marker",
+          "is_syntactic": true,
+          "prune_threshold": 0.1946
+        },
+        {
+          "index": 86,
+          "text": "total",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 87,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 88,
+          "text": "96",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 89,
+          "text": "+",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 90,
+          "text": "15",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 91,
+          "text": "=",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        },
+        {
+          "index": 92,
+          "text": "111.",
+          "category": "state_transition",
+          "is_syntactic": false,
+          "prune_threshold": 1.5
+        }
+      ]
+    }
+  ]
+}

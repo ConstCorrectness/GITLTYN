@@ -1,0 +1,31 @@
+---
+export interface Props {
+  id: string | number;
+  title?: string;
+}
+
+const { id, title } = Astro.props;
+const inputId = `sidenote-toggle-${id}`;
+---
+
+<span class="sidenote-wrapper inline">
+  <label
+    for={inputId}
+    data-sidenote-ref={String(id)}
+    class="theme-muted theme-border mx-0.5 inline-flex cursor-pointer items-center rounded border px-1.5 py-0.2 font-mono text-[10.5px] font-medium align-super transition hover:opacity-90 xl:cursor-default"
+    title="Margin note"
+  >
+    {id}
+  </label>
+  <input type="checkbox" id={inputId} class="peer sr-only" />
+  <span
+    class="sidenote-body theme-surface theme-border hidden rounded-lg border p-3 font-sans text-xs leading-[1.58] text-pretty shadow-2xs peer-checked:my-2.5 peer-checked:block xl:my-0 xl:block xl:rounded-none xl:border-0 xl:border-l xl:bg-transparent xl:p-0 xl:pl-3.5 xl:shadow-none"
+  >
+    <span class="theme-ink-muted mb-1 block font-mono text-[10.5px] font-semibold tracking-wide">
+      Note {id}{title ? ` · ${title}` : ''}
+    </span>
+    <span class="theme-ink-muted block text-pretty">
+      <slot />
+    </span>
+  </span>
+</span>

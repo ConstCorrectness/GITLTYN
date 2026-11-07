@@ -73,6 +73,61 @@
           }
         }
       }
+    },
+    "pruning_traces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "trace_id",
+          "benchmark",
+          "model_name",
+          "param_count_b",
+          "prompt",
+          "prompt_tokens",
+          "kv_kb_per_token",
+          "flops_per_token",
+          "final_answer",
+          "baseline_accuracy",
+          "telegraphic_accuracy",
+          "tokens"
+        ],
+        "properties": {
+          "trace_id": { "type": "string" },
+          "benchmark": { "type": "string" },
+          "model_name": { "type": "string" },
+          "param_count_b": { "type": "number" },
+          "prompt": { "type": "string" },
+          "prompt_tokens": { "type": "integer" },
+          "kv_kb_per_token": { "type": "number" },
+          "flops_per_token": { "type": "number" },
+          "final_answer": { "type": "string" },
+          "baseline_accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+          "telegraphic_accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["index", "text", "category", "is_syntactic", "prune_threshold"],
+              "properties": {
+                "index": { "type": "integer" },
+                "text": { "type": "string" },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "discourse_marker",
+                    "determiner_aux",
+                    "preposition_conj",
+                    "state_transition"
+                  ]
+                },
+                "is_syntactic": { "type": "boolean" },
+                "prune_threshold": { "type": "number", "minimum": 0, "maximum": 2 }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -1,16 +1,25 @@
 ---
+import PaperLayout from '@/layouts/PaperLayout.astro';
+import PaperContent, { frontmatter, getHeadings } from '@/content/paper.mdx';
+import rawArtifact from '@/data/ablation_frontier.json';
+
+const headings = getHeadings();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<PaperLayout
+  title={frontmatter.title}
+  subtitle={frontmatter.subtitle}
+  authors={[
+    {
+      name: 'ConstCorrectness',
+      url: 'https://github.com/ConstCorrectness',
+      affiliation: 'github.com/ConstCorrectness',
+    },
+  ]}
+  publishedDate={frontmatter.publishedDate}
+  artifactTimestamp={rawArtifact.generated_at}
+  abstract={frontmatter.abstract}
+  headings={headings}
+>
+  <PaperContent />
+</PaperLayout>
