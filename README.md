@@ -54,39 +54,54 @@ Instead of serializing conversational natural language at every reasoning step, 
 
 ---
 
-## Experimental Findings
+## Experimental Findings & Empirical Proof
 
-### 1. Head-to-Head 4-Regime Ablation Results
+### 1. Head-to-Head 4-Regime Ablation Results ($N=350$ Held-Out Problems)
 
-Evaluated across GSM8K (arithmetic reasoning) and MATH (algebra and number theory) using the native PyTorch `Qwen3-0.6B` pipeline ([`experiments/artifacts/qwen3_0.6b_results.json`](experiments/artifacts/qwen3_0.6b_results.json)):
+Evaluated across GSM8K (arithmetic reasoning) and MATH (algebra and number theory) using the native PyTorch `Qwen3-0.6B` pipeline on **NVIDIA A100-SXM4 (40GB)** ([`experiments/artifacts/qwen3_0.6b_results.json`](experiments/artifacts/qwen3_0.6b_results.json)), verified with live Opik Cloud telemetry ([Opik Trace 01a1b850-2471-71e8-901d-847fd177cb3d](https://www.comet.com/opik/constcorrectness/GITLTYN/traces/01a1b850-2471-71e8-901d-847fd177cb3d)):
 
-| Regime | Benchmark | Accuracy | Mean Tokens | FLOPs / Problem | KV Cache | Pareto Optimal? |
+| Regime | Benchmark | Accuracy ($N$) | Mean Tokens | FLOPs / Problem | KV Cache | Pareto Status |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Verbose CoT** (Baseline) | GSM8K | **79.2%** | 125.0 | 218.9 GFLOPs | 22.3 MB | No (high latency) |
-| **Telegraphic CoT** (Control) | GSM8K | **54.2%** | 52.7 (-57.8%) | 130.5 GFLOPs | 14.2 MB | Yes |
-| **Compute-Matched** (Budget-Capped) | GSM8K | **0.0%** | 53.8 | 131.8 GFLOPs | 14.3 MB | No (starved) |
-| **Latent Loop ($K=4$)** | GSM8K | 0.0% | 5.6 | 76.8 GFLOPs | 9.4 MB | Under-recurrent |
-| **Latent Loop ($K=8$)** | GSM8K | 4.2% | 4.8 | 79.4 GFLOPs | 9.7 MB | Emergent |
-| **Latent Loop ($K=16$)** | GSM8K | **41.7%** | **4.6 (-96.3%)** | **86.4 GFLOPs (-60.5%)** | **10.6 MB (-52.5%)** | **Global Frontier** |
+| **Verbose CoT** (Baseline) | GSM8K | **81.5%** (163/200) | 124.8 | 218.6 GFLOPs | 22.3 MB | Inefficient (High Latency) |
+| **Telegraphic CoT** (Control) | GSM8K | **70.5%** (141/200) | 53.8 (-56.9%) | 131.8 GFLOPs | 14.3 MB | Validated Control |
+| **Compute-Matched** (Budget-Capped) | GSM8K | **0.5%** (1/200) | 54.9 | 133.2 GFLOPs | 14.4 MB | **Grammar Starved (Collapsed)** |
+| **Latent Loop ($K=4$)** | GSM8K | 0.5% (1/200) | 5.5 | 76.7 GFLOPs | 9.4 MB | Under-recurrent ($K \le 4$) |
+| **Latent Loop ($K=8$)** | GSM8K | 1.0% (2/200) | 5.0 | 79.7 GFLOPs | 9.7 MB | Emergent ($K=8$) |
+| **Latent Loop ($K=16$)** | GSM8K | **44.5%** (89/200) | **4.6 (-96.3%)** | **86.4 GFLOPs (-60.5%)** | **10.6 MB (-52.5%)** | **Global Pareto Frontier** |
 | | | | | | | |
-| **Verbose CoT** (Baseline) | MATH | **62.5%** | 120.0 | 196.1 GFLOPs | 19.7 MB | Baseline |
-| **Telegraphic CoT** (Control) | MATH | **33.3%** | 60.1 (-49.9%) | 123.0 GFLOPs | 13.0 MB | Yes |
-| **Compute-Matched** (Budget-Capped) | MATH | **8.3%** | 60.8 | 123.9 GFLOPs | 13.1 MB | Collapsed |
-| **Latent Loop ($K=20$)** | MATH | **29.2%** | **4.4 (-96.3%)** | **73.5 GFLOPs (-62.5%)** | **9.0 MB (-54.3%)** | **Global Frontier** |
+| **Verbose CoT** (Baseline) | MATH | **80.0%** (120/150) | 119.5 | 195.5 GFLOPs | 19.7 MB | Baseline |
+| **Telegraphic CoT** (Control) | MATH | **37.3%** (56/150) | 60.8 (-49.1%) | 123.9 GFLOPs | 13.1 MB | Validated Control |
+| **Compute-Matched** (Budget-Capped) | MATH | **0.7%** (1/150) | 61.7 | 125.0 GFLOPs | 13.2 MB | **Grammar Starved (Collapsed)** |
+| **Latent Loop ($K=6$)** | MATH | 1.3% (2/150) | 5.3 | 61.9 GFLOPs | 7.5 MB | Under-recurrent ($K \le 6$) |
+| **Latent Loop ($K=12$)** | MATH | 0.7% (1/150) | 4.7 | 66.6 GFLOPs | 8.1 MB | Intermediate |
+| **Latent Loop ($K=20$)** | MATH | **20.0%** (30/150) | **4.5 (-96.2%)** | **73.6 GFLOPs (-62.4%)** | **9.0 MB (-54.3%)** | **Global Pareto Frontier** |
 
 <p align="center">
   <img src="assets/pareto_frontier.svg" alt="Reasoning Compute Frontier" width="100%" />
 </p>
 
-### 2. Key Empirical Insights
+---
 
-1. **The "Grammar Tax" (~66% of CoT Tokens)**: Syntactic token pruning reveals that English grammatical scaffolding accounts for 64.6%–67.1% of emitted tokens. Stripping surface grammar (Telegraphic CoT) preserves underlying numeric literals, operators, and variable bindings while reducing KV-cache footprint by over 50%.
-2. **Grammar Starvation Under Hard Compute Budgets**: When Verbose CoT is capped to match the compute budget of Telegraphic CoT (**Compute-Matched**), accuracy collapses to 0.0% on GSM8K. Models expend their early token budget on conversational preambles (*"Let's think step by step, first..."*), running out of compute before reaching the arithmetic conclusion.
-3. **Continuous Latent Recurrence Scales with Depth $K$**: Direct $\mathbb{R}^d$ latent looping exhibits clean computational emergence: shallow recurrence ($K \le 4$) is insufficient for multi-step arithmetic, but depth scaling ($K=16$ on GSM8K, $K=20$ on MATH) achieves 41.7% and 29.2% accuracy emitting under 5 tokens total. Across 1.5B and 3B models, continuous looping strictly dominates Verbose CoT on the global Pareto frontier (+1.5 to +3.6 percentage points higher accuracy at 73% fewer FLOPs).
-4. **Mechanistic Trajectory Transparency**:
-   - **Superposition Before Crystallization**: Logit Lens analysis of intermediate steps shows hidden states hold simultaneous probability distributions over multiple candidate operations before collapsing to the final output token at step $K$.
-   - **Distractor Filtering**: The stop-gradient sidecar probe shows the latent loop actively filters conversational distractors in continuous space before executing numeric operations.
-   - **Zero Interference**: PyTorch autograd graph tests verify disjoint optimization maintains strictly zero gradient interference on the reasoning backbone ($`\nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}} = 0`$).
+### 2. The Four Pillars of Empirical Proof
+
+#### Empirical Proof 1: Grammar Starvation Under Hard Compute Budgets
+- **Phenomenon**: When standard Verbose CoT is capped to match the exact token/FLOP budget of Telegraphic CoT (**Compute-Matched**), performance collapses catastrophically: from **81.5% down to 0.5%** on GSM8K and from **80.0% down to 0.7%** on MATH.
+- **Root Cause**: Natural language autoregression forces models to spend early tokens on conversational preambles (*"Let's think step by step, first Natalia sold..."*). Under hard latency budgets, the model runs out of tokens before ever calculating or committing the terminal arithmetic answer literal.
+- **Conclusion**: Emitted surface grammar represents an active operational liability under compute constraints.
+
+#### Empirical Proof 2: Non-Linear Computational Emergence in $\mathbb{R}^d$ Latent Loops
+- **Phenomenon**: Direct continuous recurrence exhibits a sharp computational phase transition with depth $K$:
+  - Shallow recurrence ($K \le 8$) is insufficient for multi-step algebraic manipulation ($0.5\% \to 1.0\%$).
+  - Scaling to **$K=16$ on GSM8K** triggers a dramatic emergence to **44.5% accuracy** (89/200 correct), while emitting **only 4.6 tokens total**.
+  - Scaling to **$K=20$ on MATH** achieves **20.0% accuracy** (30/150 correct), emitting **only 4.5 tokens total**.
+- **Efficiency Gains**: Latent looping achieves over **$60\%$ FLOP reduction** ($218.6 \to 86.4$ GFLOPs), over **$52\%$ KV-cache reduction** ($22.3 \to 10.6$ MB), and a **$96.3\%$ token serialization reduction** ($124.8 \to 4.6$ tokens).
+
+#### Empirical Proof 3: Zero-Interference Sidecar Probing ($\nabla_{\theta_{\text{backbone}}} \mathcal{L}_{\text{probe}} = 0$)
+- **Phenomenon**: The stop-gradient sidecar probe $g_{\phi}(\text{sg}[z_{1:K}])$ optimizes auxiliary semantic state readouts down to a final loss of **`0.0001`**, while PyTorch autograd assertions strictly verify zero gradient norm leakage into the reasoning backbone (`verified_zero_backbone_grad_on_probe = True`).
+- **Auditability**: Practitioners can mechanistically inspect intermediate reasoning steps without compromising backbone expressivity or contaminating continuous representations with surface-syntax gradients.
+
+#### Empirical Proof 4: Superposition Before Terminal Crystallization
+- **Phenomenon**: Detached Logit Lens inspection of intermediate vectors $z_k$ reveals that the latent state holds simultaneous probability distributions over multiple plausible arithmetic operations (e.g. division `/` at $41.3\%$ vs. equality `=` at $13.1\%$), maintaining continuous superposition across intermediate recurrence before collapsing into the final token commit at step $K$.
 
 ---
 

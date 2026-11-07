@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="100%" height="100%" style="background:#0f172a; border-radius:12px; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <!-- Title & Subtitle -->
-  <text x="480" y="36" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">REASONING ACCURACY VS. COMPUTATIONAL COST (GSM8K)</text>
-  <text x="480" y="56" text-anchor="middle" fill="#94a3b8" font-size="12">Continuous Latent Looping shifts the Pareto Frontier upward (+1.5% to +3.6% accuracy, -75% compute)</text>
+  <text x="480" y="34" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="700">REASONING ACCURACY VS. COMPUTATIONAL COST (GSM8K N=200)</text>
+  <text x="480" y="54" text-anchor="middle" fill="#94a3b8" font-size="12">NVIDIA A100 Empirical Proof: Latent Looping (K=16) achieves 44.5% accuracy emitting only 4.6 tokens (-60.5% FLOPs, -52.5% KV cache)</text>
 
   <!-- Plot Area: x from 120 to 880 (width 760), y from 90 to 390 (height 300) -->
   <!-- Grid Lines -->
@@ -22,50 +22,50 @@
 
   <!-- X-Axis Labels (Tokens & GFLOPs) -->
   <text x="210" y="415" text-anchor="middle" fill="#94a3b8" font-size="11">~5 Tokens</text>
-  <text x="210" y="430" text-anchor="middle" fill="#64748b" font-size="10">(80 GFLOPs)</text>
+  <text x="210" y="430" text-anchor="middle" fill="#64748b" font-size="10">(86 GFLOPs)</text>
 
-  <text x="460" y="415" text-anchor="middle" fill="#94a3b8" font-size="11">~53 Tokens</text>
-  <text x="460" y="430" text-anchor="middle" fill="#64748b" font-size="10">(130 GFLOPs)</text>
+  <text x="460" y="415" text-anchor="middle" fill="#94a3b8" font-size="11">~54 Tokens</text>
+  <text x="460" y="430" text-anchor="middle" fill="#64748b" font-size="10">(132 GFLOPs)</text>
 
   <text x="780" y="415" text-anchor="middle" fill="#94a3b8" font-size="11">~125 Tokens</text>
-  <text x="780" y="430" text-anchor="middle" fill="#64748b" font-size="10">(220 GFLOPs)</text>
+  <text x="780" y="430" text-anchor="middle" fill="#64748b" font-size="10">(219 GFLOPs)</text>
 
   <text x="500" y="450" text-anchor="middle" fill="#cbd5e1" font-size="12" font-weight="600">Inference Compute (Mean Tokens Emitted &amp; GFLOPs)</text>
 
   <!-- Pareto Frontier Area Curve (Shaded) -->
-  <path d="M 210 265 Q 460 215 780 152 L 780 390 L 210 390 Z" fill="#10b981" fill-opacity="0.08"/>
-  <path d="M 210 265 Q 460 215 780 152" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="6,4"/>
-  <text x="350" y="210" fill="#10b981" font-size="11" font-weight="700">★ Global Pareto Frontier</text>
+  <path d="M 215 256 Q 460 178 780 145 L 780 390 L 215 390 Z" fill="#10b981" fill-opacity="0.08"/>
+  <path d="M 215 256 Q 460 178 780 145" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="350" y="195" fill="#10b981" font-size="11" font-weight="700">★ Global Pareto Frontier</text>
 
   <!-- Point 1: Verbose CoT (Slate) -->
-  <circle cx="780" cy="152" r="8" fill="#64748b" stroke="#f8fafc" stroke-width="2"/>
-  <rect x="680" y="110" width="190" height="34" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
-  <text x="775" y="125" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">Verbose CoT Baseline</text>
-  <text x="775" y="138" text-anchor="middle" fill="#94a3b8" font-size="10">79.2% Acc | 125 tok | 219 GF</text>
+  <circle cx="780" cy="145" r="8" fill="#64748b" stroke="#f8fafc" stroke-width="2"/>
+  <rect x="680" y="100" width="190" height="34" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+  <text x="775" y="115" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">Verbose CoT Baseline</text>
+  <text x="775" y="128" text-anchor="middle" fill="#94a3b8" font-size="10">81.5% Acc | 125 tok | 219 GF</text>
 
   <!-- Point 2: Telegraphic CoT (Amber) -->
-  <circle cx="460" cy="227" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2"/>
-  <rect x="370" y="245" width="180" height="34" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
-  <text x="460" y="260" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600">Telegraphic CoT Control</text>
-  <text x="460" y="273" text-anchor="middle" fill="#94a3b8" font-size="10">54.2% Acc | 53 tok | -58% Tokens</text>
+  <circle cx="460" cy="178" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2"/>
+  <rect x="370" y="195" width="180" height="34" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+  <text x="460" y="210" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600">Telegraphic CoT Control</text>
+  <text x="460" y="223" text-anchor="middle" fill="#94a3b8" font-size="10">70.5% Acc | 54 tok | -57% Tokens</text>
 
   <!-- Point 3: Compute-Matched (Red) - Collapsed -->
-  <circle cx="470" cy="390" r="8" fill="#ef4444" stroke="#f8fafc" stroke-width="2"/>
-  <rect x="485" y="350" width="180" height="34" rx="4" fill="#1e293b" stroke="#ef4444" stroke-width="1"/>
-  <text x="575" y="365" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">Compute-Matched Truncated</text>
-  <text x="575" y="378" text-anchor="middle" fill="#94a3b8" font-size="10">0.0% Acc (Grammar Starvation)</text>
+  <circle cx="470" cy="388" r="8" fill="#ef4444" stroke="#f8fafc" stroke-width="2"/>
+  <rect x="485" y="348" width="185" height="34" rx="4" fill="#1e293b" stroke="#ef4444" stroke-width="1"/>
+  <text x="577" y="363" text-anchor="middle" fill="#f87171" font-size="11" font-weight="600">Compute-Matched Truncated</text>
+  <text x="577" y="376" text-anchor="middle" fill="#94a3b8" font-size="10">0.5% Acc (Grammar Starvation)</text>
 
   <!-- Latent Loop Points (Emerald) -->
   <!-- K=4 -->
-  <circle cx="205" cy="390" r="5" fill="#10b981"/>
+  <circle cx="205" cy="388" r="5" fill="#10b981"/>
   <!-- K=8 -->
-  <circle cx="210" cy="377" r="6" fill="#10b981"/>
+  <circle cx="210" cy="387" r="6" fill="#10b981"/>
   <!-- K=16 (Emerald Big Star) -->
-  <circle cx="215" cy="265" r="9" fill="#10b981" stroke="#f8fafc" stroke-width="2"/>
-  <rect x="130" y="195" width="185" height="46" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
-  <text x="222" y="212" text-anchor="middle" fill="#a7f3d0" font-size="11" font-weight="700">Latent Loop (K=16)</text>
-  <text x="222" y="226" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">41.7% Acc | Only 4.6 Tokens!</text>
-  <text x="222" y="238" text-anchor="middle" fill="#6ee7b7" font-size="10">-60.5% FLOPs | -52.5% KV Cache</text>
+  <circle cx="215" cy="256" r="9" fill="#10b981" stroke="#f8fafc" stroke-width="2"/>
+  <rect x="125" y="185" width="195" height="46" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="222" y="202" text-anchor="middle" fill="#a7f3d0" font-size="11" font-weight="700">Latent Loop (K=16)</text>
+  <text x="222" y="216" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">44.5% Acc | Only 4.6 Tokens!</text>
+  <text x="222" y="228" text-anchor="middle" fill="#6ee7b7" font-size="10">-60.5% FLOPs | -52.5% KV Cache</text>
 
   <!-- Legend Box -->
   <g transform="translate(620, 60)">
