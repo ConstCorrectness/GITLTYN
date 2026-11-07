@@ -25,6 +25,7 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 import numpy as np
+import opik
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -623,6 +624,7 @@ def decode_latent_loop_answer(
     return tokenizer.decode(out_ids), len(out_ids)
 
 
+@opik.track(name="evaluate_qwen3_regimes", project_name="GITLTYN")
 @torch.no_grad()
 def evaluate_qwen3_regimes(
     model: Qwen3CausalLM,

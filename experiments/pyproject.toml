@@ -5,7 +5,9 @@ description = "Ablation pipelines and schema-validated artifact exporter for Gra
 requires-python = ">=3.11"
 dependencies = [
     "jsonschema>=4.23.0",
+    "modal>=1.6.3",
     "numpy>=2.0.0",
+    "opik>=2.2.143",
     "pydantic>=2.9.0",
     "pytest>=8.3.0",
     "safetensors>=0.5.0",

@@ -21,6 +21,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+import opik
 import torch
 
 EXPERIMENTS_ROOT = Path(__file__).resolve().parents[1]
@@ -104,6 +105,7 @@ def run_scratch_micro_verification(device: torch.device) -> dict[str, float]:
     }
 
 
+@opik.track(name="run_qwen3_ablation", project_name="GITLTYN")
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Run PyTorch Qwen3-0.6B pretraining, post-training, and 4-regime evaluation."
@@ -350,6 +352,7 @@ def main() -> None:
 
     web_artifact = export_to_web()
     print(f"[Export]  Updated schema-validated web artifact -> {web_artifact}")
+    opik.flush_tracker()
 
 
 if __name__ == "__main__":
