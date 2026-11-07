@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "project": "Grammar is the Last Thing You Need (GITLTYN)",
+  "production_defaults": {
+    "enable_latent_tee": false,
+    "enforce_stop_gradient_detach": true,
+    "separate_probe_optimizer": true
+  },
+  "audit_override": {
+    "enable_latent_tee": true,
+    "ring_buffer_capacity_m": 6
+  },
+  "regimes": [
+    {
+      "regime": "verbose_cot",
+      "alias": "standard_cot",
+      "role": "baseline",
+      "bypasses_w_unembed_during_reasoning": false,
+      "latent_steps_k": 0,
+      "tee": null,
+      "positioning_note": "Unconstrained grammatical Chain-of-Thought baseline paying full W_unembed and KV-cache cost on every fluency token."
+    },
+    {
+      "regime": "telegraphic_cot",
+      "alias": "syntactic_pruned_cot",
+      "role": "motivational_ablation_control",
+      "bypasses_w_unembed_during_reasoning": false,
+      "latent_steps_k": 0,
+      "tee": null,
+      "positioning_note": "Motivational empirical control (contra TokenSkip, CCoT, Sketch-of-Thought): proves English syntax accounts for 64.6%-67.1% of emitted tokens with <1% accuracy contribution, motivating pure R^d Continuous Latent Looping rather than stopping at discrete token compression."
+    },
+    {
+      "regime": "compute_matched",
+      "alias": "budget_forced_cot",
+      "role": "motivational_budget_control",
+      "bypasses_w_unembed_during_reasoning": false,
+      "latent_steps_k": 0,
+      "tee": null,
+      "positioning_note": "Budget-forced CoT control truncating verbose CoT to the exact token/FLOP budget of telegraphic_cot, isolating accuracy collapse caused by syntactic token starvation."
+    },
+    {
+      "regime": "latent_loop",
+      "alias": "continuous_latent_loop_with_ring_buffer_tee",
+      "role": "proposed_architecture",
+      "bypasses_w_unembed_during_reasoning": true,
+      "latent_steps_k": 16,
+      "tee": {
+        "enable_latent_tee": false,
+        "ring_buffer_capacity_m": 8,
+        "enforce_stop_gradient_detach": true,
+        "separate_probe_optimizer": true
+      },
+      "positioning_note": "Proposed pure R^d recurrence with fixed-capacity RingBufferLatentTee (M <= K, O(1) memory w.r.t. K; contra Geiping et al., 2025 & Giannou et al., 2023) and stop-gradient SidecarProbe g_phi(sg[z_{1:K}]) with grad_{theta_backbone} L_probe = 0 (contra Coconut, Hao et al., 2024)."
+    }
+  ]
+}

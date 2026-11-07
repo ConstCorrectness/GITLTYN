@@ -1,0 +1,27 @@
+[project]
+name = "gitltyn-experiments"
+version = "0.1.0"
+description = "Ablation pipelines and schema-validated artifact exporter for Grammar is the Last Thing You Need (GITLTYN)"
+requires-python = ">=3.11"
+dependencies = [
+    "jsonschema>=4.23.0",
+    "numpy>=2.0.0",
+    "pydantic>=2.9.0",
+    "pytest>=8.3.0",
+    "safetensors>=0.5.0",
+    "tokenizers>=0.21.0",
+    "torch>=2.6.0",
+    "transformers>=4.51.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+addopts = "-q"

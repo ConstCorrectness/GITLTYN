@@ -7,16 +7,16 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.8333,
-      "accuracy_logit": 1.6092,
+      "accuracy": 0.7917,
+      "accuracy_logit": 1.3352,
       "ci_95": [
-        0.6414,
-        0.9332
+        0.5953,
+        0.9076
       ],
-      "mean_tokens_emitted": 124.8,
+      "mean_tokens_emitted": 125.0,
       "latent_steps_k": 0,
-      "flops_per_problem": 218643711836.16,
-      "kv_cache_kb": 22265.6,
+      "flops_per_problem": 218889122816.0,
+      "kv_cache_kb": 22288.0,
       "is_pareto_frontier": true
     },
     {
@@ -25,17 +25,17 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.1667,
-      "accuracy_logit": -1.6092,
+      "accuracy": 0.5417,
+      "accuracy_logit": 0.1672,
       "ci_95": [
-        0.0668,
-        0.3586
+        0.3508,
+        0.7211
       ],
-      "mean_tokens_emitted": 67.9,
+      "mean_tokens_emitted": 52.7,
       "latent_steps_k": 0,
-      "flops_per_problem": 149010598154.24,
-      "kv_cache_kb": 15892.8,
-      "is_pareto_frontier": false
+      "flops_per_problem": 130471978127.36,
+      "kv_cache_kb": 14190.4,
+      "is_pareto_frontier": true
     },
     {
       "run_id": "gsm8k_qwen0.6b_matched",
@@ -49,10 +49,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 68.9,
+      "mean_tokens_emitted": 53.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 150231173181.44,
-      "kv_cache_kb": 16004.8,
+      "flops_per_problem": 131812699381.76,
+      "kv_cache_kb": 14313.6,
       "is_pareto_frontier": false
     },
     {
@@ -67,10 +67,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 4.4,
+      "mean_tokens_emitted": 5.6,
       "latent_steps_k": 4,
-      "flops_per_problem": 75348148387.84,
-      "kv_cache_kb": 9228.8,
+      "flops_per_problem": 76804663459.84,
+      "kv_cache_kb": 9363.2,
       "is_pareto_frontier": true
     },
     {
@@ -79,17 +79,17 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.0417,
+      "accuracy_logit": -3.1347,
       "ci_95": [
-        0.0,
-        0.138
+        0.0074,
+        0.2025
       ],
-      "mean_tokens_emitted": 5.5,
+      "mean_tokens_emitted": 4.8,
       "latent_steps_k": 8,
-      "flops_per_problem": 80294818304.0,
-      "kv_cache_kb": 9800.0,
-      "is_pareto_frontier": false
+      "flops_per_problem": 79444851343.36,
+      "kv_cache_kb": 9721.6,
+      "is_pareto_frontier": true
     },
     {
       "run_id": "gsm8k_qwen0.6b_latent_k16",
@@ -97,16 +97,16 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.1667,
-      "accuracy_logit": -1.6092,
+      "accuracy": 0.4167,
+      "accuracy_logit": -0.3363,
       "ci_95": [
-        0.0668,
-        0.3586
+        0.2447,
+        0.6117
       ],
-      "mean_tokens_emitted": 4.8,
+      "mean_tokens_emitted": 4.6,
       "latent_steps_k": 16,
-      "flops_per_problem": 86672788930.56,
-      "kv_cache_kb": 10617.6,
+      "flops_per_problem": 86429768048.64,
+      "kv_cache_kb": 10595.2,
       "is_pareto_frontier": true
     },
     {
@@ -287,7 +287,7 @@
       "latent_steps_k": 4,
       "flops_per_problem": 481618699264.0,
       "kv_cache_kb": 3132.0,
-      "is_pareto_frontier": false
+      "is_pareto_frontier": true
     },
     {
       "run_id": "gsm8k_qwen3b_latent_k8",
@@ -337,10 +337,10 @@
         0.4271,
         0.7884
       ],
-      "mean_tokens_emitted": 121.0,
+      "mean_tokens_emitted": 120.0,
       "latent_steps_k": 0,
-      "flops_per_problem": 197339687936.0,
-      "kv_cache_kb": 19824.0,
+      "flops_per_problem": 196116234240.0,
+      "kv_cache_kb": 19712.0,
       "is_pareto_frontier": true
     },
     {
@@ -349,16 +349,16 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "MATH",
-      "accuracy": 0.2917,
-      "accuracy_logit": -0.8871,
+      "accuracy": 0.3333,
+      "accuracy_logit": -0.6933,
       "ci_95": [
-        0.1492,
-        0.4917
+        0.1797,
+        0.5329
       ],
-      "mean_tokens_emitted": 78.7,
+      "mean_tokens_emitted": 60.1,
       "latent_steps_k": 0,
-      "flops_per_problem": 145687775989.76,
-      "kv_cache_kb": 15086.4,
+      "flops_per_problem": 123040543600.64,
+      "kv_cache_kb": 13003.2,
       "is_pareto_frontier": true
     },
     {
@@ -367,16 +367,16 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "MATH",
-      "accuracy": 0.0417,
-      "accuracy_logit": -3.1347,
+      "accuracy": 0.0833,
+      "accuracy_logit": -2.3983,
       "ci_95": [
-        0.0074,
-        0.2025
+        0.0231,
+        0.2584
       ],
-      "mean_tokens_emitted": 79.4,
+      "mean_tokens_emitted": 60.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 146540865904.64,
-      "kv_cache_kb": 15164.8,
+      "flops_per_problem": 123892140277.76,
+      "kv_cache_kb": 13081.6,
       "is_pareto_frontier": false
     },
     {
@@ -391,10 +391,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 4.2,
+      "mean_tokens_emitted": 4.5,
       "latent_steps_k": 6,
-      "flops_per_problem": 60611666780.16,
-      "kv_cache_kb": 7414.4,
+      "flops_per_problem": 60974913024.0,
+      "kv_cache_kb": 7448.0,
       "is_pareto_frontier": true
     },
     {
@@ -409,10 +409,10 @@
         0.0,
         0.138
       ],
-      "mean_tokens_emitted": 4.8,
+      "mean_tokens_emitted": 4.5,
       "latent_steps_k": 12,
-      "flops_per_problem": 66738478940.16,
-      "kv_cache_kb": 8153.6,
+      "flops_per_problem": 66375015936.0,
+      "kv_cache_kb": 8120.0,
       "is_pareto_frontier": false
     },
     {
@@ -421,17 +421,17 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.2917,
+      "accuracy_logit": -0.8871,
       "ci_95": [
-        0.0,
-        0.138
+        0.1492,
+        0.4917
       ],
-      "mean_tokens_emitted": 4.5,
+      "mean_tokens_emitted": 4.4,
       "latent_steps_k": 20,
-      "flops_per_problem": 73581575680.0,
-      "kv_cache_kb": 9016.0,
-      "is_pareto_frontier": false
+      "flops_per_problem": 73460331888.64,
+      "kv_cache_kb": 9004.8,
+      "is_pareto_frontier": true
     },
     {
       "run_id": "math_qwen1.5b_verbose",
@@ -1192,165 +1192,165 @@
       "latent_steps": [
         {
           "step_k": 1,
-          "l2_norm": 119.098,
-          "logit_lens_top_k": [
-            {
-              "token": "4",
-              "prob": 0.3718
-            },
-            {
-              "token": "3",
-              "prob": 0.0909
-            },
-            {
-              "token": "6",
-              "prob": 0.0853
-            },
-            {
-              "token": "9",
-              "prob": 0.0799
-            },
-            {
-              "token": "2",
-              "prob": 0.07
-            }
-          ],
-          "sidecar_decoded": "[k=1] halt_gate -> commit W_unembed answer"
-        },
-        {
-          "step_k": 2,
-          "l2_norm": 140.063,
-          "logit_lens_top_k": [
-            {
-              "token": "2",
-              "prob": 0.3415
-            },
-            {
-              "token": "1",
-              "prob": 0.1122
-            },
-            {
-              "token": "4",
-              "prob": 0.104
-            },
-            {
-              "token": "3",
-              "prob": 0.0827
-            },
-            {
-              "token": "6",
-              "prob": 0.0653
-            }
-          ],
-          "sidecar_decoded": "[k=2] halt_gate -> commit W_unembed answer"
-        },
-        {
-          "step_k": 3,
-          "l2_norm": 129.572,
-          "logit_lens_top_k": [
-            {
-              "token": "=",
-              "prob": 0.3764
-            },
-            {
-              "token": "+",
-              "prob": 0.0999
-            },
-            {
-              "token": "*",
-              "prob": 0.0657
-            },
-            {
-              "token": "6",
-              "prob": 0.0646
-            },
-            {
-              "token": "4",
-              "prob": 0.0591
-            }
-          ],
-          "sidecar_decoded": "[k=3] halt_gate -> commit W_unembed answer"
-        },
-        {
-          "step_k": 4,
-          "l2_norm": 109.942,
-          "logit_lens_top_k": [
-            {
-              "token": "3",
-              "prob": 0.3031
-            },
-            {
-              "token": "4",
-              "prob": 0.1204
-            },
-            {
-              "token": "6",
-              "prob": 0.108
-            },
-            {
-              "token": "1",
-              "prob": 0.1056
-            },
-            {
-              "token": "2",
-              "prob": 0.0886
-            }
-          ],
-          "sidecar_decoded": "[k=4] halt_gate -> commit W_unembed answer"
-        },
-        {
-          "step_k": 5,
-          "l2_norm": 114.61,
+          "l2_norm": 123.753,
           "logit_lens_top_k": [
             {
               "token": "/",
-              "prob": 0.3774
+              "prob": 0.4385
             },
             {
-              "token": "4",
-              "prob": 0.1431
+              "token": "+",
+              "prob": 0.1332
             },
             {
               "token": "=",
-              "prob": 0.0992
+              "prob": 0.0929
             },
             {
-              "token": "May",
-              "prob": 0.0574
+              "token": "*",
+              "prob": 0.0698
             },
             {
-              "token": "6",
-              "prob": 0.055
+              "token": "####",
+              "prob": 0.0532
             }
           ],
-          "sidecar_decoded": "[k=5] halt_gate -> commit W_unembed answer"
+          "sidecar_decoded": "[k=1] bind prompt operands -> latent register"
         },
         {
-          "step_k": 6,
-          "l2_norm": 109.832,
+          "step_k": 2,
+          "l2_norm": 131.072,
           "logit_lens_top_k": [
             {
-              "token": "6",
-              "prob": 0.2843
+              "token": "=",
+              "prob": 0.4901
             },
             {
-              "token": "3",
-              "prob": 0.1742
+              "token": "+",
+              "prob": 0.09
+            },
+            {
+              "token": "6",
+              "prob": 0.0514
             },
             {
               "token": "4",
-              "prob": 0.124
+              "prob": 0.0495
             },
             {
-              "token": "9",
-              "prob": 0.0828
+              "token": "3",
+              "prob": 0.0476
+            }
+          ],
+          "sidecar_decoded": "[k=2] op mul/div intermediate quantity"
+        },
+        {
+          "step_k": 3,
+          "l2_norm": 87.743,
+          "logit_lens_top_k": [
+            {
+              "token": "2",
+              "prob": 0.2616
+            },
+            {
+              "token": "3",
+              "prob": 0.1269
+            },
+            {
+              "token": "1",
+              "prob": 0.1171
+            },
+            {
+              "token": "4",
+              "prob": 0.1063
+            },
+            {
+              "token": "6",
+              "prob": 0.1013
+            }
+          ],
+          "sidecar_decoded": "[k=3] bind prompt operands -> latent register"
+        },
+        {
+          "step_k": 4,
+          "l2_norm": 111.575,
+          "logit_lens_top_k": [
+            {
+              "token": "6",
+              "prob": 0.3243
+            },
+            {
+              "token": "3",
+              "prob": 0.2305
+            },
+            {
+              "token": "4",
+              "prob": 0.0904
             },
             {
               "token": "2",
-              "prob": 0.0751
+              "prob": 0.0657
+            },
+            {
+              "token": "9",
+              "prob": 0.0559
             }
           ],
-          "sidecar_decoded": "[k=6] halt_gate -> commit W_unembed answer"
+          "sidecar_decoded": "[k=4] bind prompt operands -> latent register"
+        },
+        {
+          "step_k": 5,
+          "l2_norm": 139.248,
+          "logit_lens_top_k": [
+            {
+              "token": "3",
+              "prob": 0.4937
+            },
+            {
+              "token": "4",
+              "prob": 0.0654
+            },
+            {
+              "token": "2",
+              "prob": 0.0629
+            },
+            {
+              "token": "1",
+              "prob": 0.0619
+            },
+            {
+              "token": "6",
+              "prob": 0.0541
+            }
+          ],
+          "sidecar_decoded": "[k=5] op mul/div intermediate quantity"
+        },
+        {
+          "step_k": 6,
+          "l2_norm": 136.625,
+          "logit_lens_top_k": [
+            {
+              "token": "=",
+              "prob": 0.461
+            },
+            {
+              "token": "+",
+              "prob": 0.1593
+            },
+            {
+              "token": "1",
+              "prob": 0.0529
+            },
+            {
+              "token": "/",
+              "prob": 0.0496
+            },
+            {
+              "token": "6",
+              "prob": 0.0364
+            }
+          ],
+          "sidecar_decoded": "[k=6] op mul/div intermediate quantity"
         }
       ]
     }
@@ -2698,8 +2698,8 @@
       "kv_kb_per_token": 112.0,
       "flops_per_token": 1200000000.0,
       "final_answer": "111",
-      "baseline_accuracy": 0.8333,
-      "telegraphic_accuracy": 0.1667,
+      "baseline_accuracy": 0.7917,
+      "telegraphic_accuracy": 0.5417,
       "tokens": [
         {
           "index": 0,
