@@ -7,16 +7,16 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.7917,
-      "accuracy_logit": 1.3352,
+      "accuracy": 0.815,
+      "accuracy_logit": 1.4828,
       "ci_95": [
-        0.5953,
-        0.9076
+        0.7554,
+        0.8627
       ],
-      "mean_tokens_emitted": 124.4,
+      "mean_tokens_emitted": 124.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 218152903639.04,
-      "kv_cache_kb": 22220.8,
+      "flops_per_problem": 218643711836.16,
+      "kv_cache_kb": 22265.6,
       "is_pareto_frontier": true
     },
     {
@@ -25,16 +25,16 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.5833,
-      "accuracy_logit": 0.3363,
+      "accuracy": 0.705,
+      "accuracy_logit": 0.8712,
       "ci_95": [
-        0.3883,
-        0.7553
+        0.6384,
+        0.7639
       ],
-      "mean_tokens_emitted": 53.6,
+      "mean_tokens_emitted": 53.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 131568921559.04,
-      "kv_cache_kb": 14291.2,
+      "flops_per_problem": 131812699381.76,
+      "kv_cache_kb": 14313.6,
       "is_pareto_frontier": true
     },
     {
@@ -43,11 +43,11 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "GSM8K",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.005,
+      "accuracy_logit": -5.2933,
       "ci_95": [
-        0.0,
-        0.138
+        0.0009,
+        0.0278
       ],
       "mean_tokens_emitted": 54.9,
       "latent_steps_k": 0,
@@ -61,16 +61,16 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.005,
+      "accuracy_logit": -5.2933,
       "ci_95": [
-        0.0,
-        0.138
+        0.0009,
+        0.0278
       ],
-      "mean_tokens_emitted": 5.6,
+      "mean_tokens_emitted": 5.5,
       "latent_steps_k": 4,
-      "flops_per_problem": 76804663459.84,
-      "kv_cache_kb": 9363.2,
+      "flops_per_problem": 76683280896.0,
+      "kv_cache_kb": 9352.0,
       "is_pareto_frontier": true
     },
     {
@@ -79,11 +79,11 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.0417,
-      "accuracy_logit": -3.1347,
+      "accuracy": 0.01,
+      "accuracy_logit": -4.5951,
       "ci_95": [
-        0.0074,
-        0.2025
+        0.0027,
+        0.0357
       ],
       "mean_tokens_emitted": 5.0,
       "latent_steps_k": 8,
@@ -97,11 +97,11 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.4167,
-      "accuracy_logit": -0.3363,
+      "accuracy": 0.445,
+      "accuracy_logit": -0.2209,
       "ci_95": [
-        0.2447,
-        0.6117
+        0.3778,
+        0.5143
       ],
       "mean_tokens_emitted": 4.6,
       "latent_steps_k": 16,
@@ -287,7 +287,7 @@
       "latent_steps_k": 4,
       "flops_per_problem": 481618699264.0,
       "kv_cache_kb": 3132.0,
-      "is_pareto_frontier": true
+      "is_pareto_frontier": false
     },
     {
       "run_id": "gsm8k_qwen3b_latent_k8",
@@ -331,16 +331,16 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "MATH",
-      "accuracy": 0.7083,
-      "accuracy_logit": 0.8871,
+      "accuracy": 0.8,
+      "accuracy_logit": 1.3863,
       "ci_95": [
-        0.5083,
-        0.8508
+        0.7289,
+        0.8562
       ],
-      "mean_tokens_emitted": 120.6,
+      "mean_tokens_emitted": 119.5,
       "latent_steps_k": 0,
-      "flops_per_problem": 196850292695.04,
-      "kv_cache_kb": 19779.2,
+      "flops_per_problem": 195504550400.0,
+      "kv_cache_kb": 19656.0,
       "is_pareto_frontier": true
     },
     {
@@ -349,16 +349,16 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "MATH",
-      "accuracy": 0.4167,
-      "accuracy_logit": -0.3363,
+      "accuracy": 0.3733,
+      "accuracy_logit": -0.5181,
       "ci_95": [
-        0.2447,
-        0.6117
+        0.3,
+        0.453
       ],
-      "mean_tokens_emitted": 59.4,
+      "mean_tokens_emitted": 60.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 122189003120.64,
-      "kv_cache_kb": 12924.8,
+      "flops_per_problem": 123892140277.76,
+      "kv_cache_kb": 13081.6,
       "is_pareto_frontier": true
     },
     {
@@ -367,16 +367,16 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.0067,
+      "accuracy_logit": -4.9989,
       "ci_95": [
-        0.0,
-        0.138
+        0.0012,
+        0.0368
       ],
-      "mean_tokens_emitted": 59.8,
+      "mean_tokens_emitted": 61.7,
       "latent_steps_k": 0,
-      "flops_per_problem": 122675590799.36,
-      "kv_cache_kb": 12969.6,
+      "flops_per_problem": 124987132866.56,
+      "kv_cache_kb": 13182.4,
       "is_pareto_frontier": false
     },
     {
@@ -385,16 +385,16 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.0133,
+      "accuracy_logit": -4.3066,
       "ci_95": [
-        0.0,
-        0.138
+        0.0036,
+        0.0473
       ],
-      "mean_tokens_emitted": 5.2,
+      "mean_tokens_emitted": 5.3,
       "latent_steps_k": 6,
-      "flops_per_problem": 61822527733.76,
-      "kv_cache_kb": 7526.4,
+      "flops_per_problem": 61943620136.96,
+      "kv_cache_kb": 7537.6,
       "is_pareto_frontier": true
     },
     {
@@ -403,11 +403,11 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "accuracy_logit": -13.8155,
+      "accuracy": 0.0067,
+      "accuracy_logit": -4.9989,
       "ci_95": [
-        0.0,
-        0.138
+        0.0012,
+        0.0368
       ],
       "mean_tokens_emitted": 4.7,
       "latent_steps_k": 12,
@@ -421,16 +421,16 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.1667,
-      "accuracy_logit": -1.6092,
+      "accuracy": 0.2,
+      "accuracy_logit": -1.3863,
       "ci_95": [
-        0.0668,
-        0.3586
+        0.1438,
+        0.2711
       ],
-      "mean_tokens_emitted": 4.6,
+      "mean_tokens_emitted": 4.5,
       "latent_steps_k": 20,
-      "flops_per_problem": 73702820618.24,
-      "kv_cache_kb": 9027.2,
+      "flops_per_problem": 73581575680.0,
+      "kv_cache_kb": 9016.0,
       "is_pareto_frontier": true
     },
     {
@@ -2698,8 +2698,8 @@
       "kv_kb_per_token": 112.0,
       "flops_per_token": 1200000000.0,
       "final_answer": "111",
-      "baseline_accuracy": 0.7917,
-      "telegraphic_accuracy": 0.5833,
+      "baseline_accuracy": 0.815,
+      "telegraphic_accuracy": 0.705,
       "tokens": [
         {
           "index": 0,

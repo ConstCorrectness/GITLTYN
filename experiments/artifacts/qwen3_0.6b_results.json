@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-07T23:17:01Z",
+  "generated_at": "2026-11-07T23:25:56Z",
   "hf_source_model": "Qwen/Qwen3-0.6B-Base",
   "mode": "hybrid",
   "device": "cuda",
   "gpu_name": "NVIDIA A100-SXM4-40GB",
-  "elapsed_seconds": 108.9,
+  "elapsed_seconds": 361.93,
   "scratch_verification": {
     "scratch_pretrain_initial_loss": 6.0138,
     "scratch_pretrain_final_loss": 2.1218,
@@ -40,12 +40,12 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.7917,
-      "n_eval": 24,
-      "mean_tokens_emitted": 124.4,
+      "accuracy": 0.815,
+      "n_eval": 200,
+      "mean_tokens_emitted": 124.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 218152903639.04,
-      "kv_cache_kb": 22220.8
+      "flops_per_problem": 218643711836.16,
+      "kv_cache_kb": 22265.6
     },
     {
       "run_id": "gsm8k_qwen0.6b_telegraphic",
@@ -53,12 +53,12 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "GSM8K",
-      "accuracy": 0.5833,
-      "n_eval": 24,
-      "mean_tokens_emitted": 53.6,
+      "accuracy": 0.705,
+      "n_eval": 200,
+      "mean_tokens_emitted": 53.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 131568921559.04,
-      "kv_cache_kb": 14291.2
+      "flops_per_problem": 131812699381.76,
+      "kv_cache_kb": 14313.6
     },
     {
       "run_id": "gsm8k_qwen0.6b_matched",
@@ -66,8 +66,8 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "GSM8K",
-      "accuracy": 0.0,
-      "n_eval": 24,
+      "accuracy": 0.005,
+      "n_eval": 200,
       "mean_tokens_emitted": 54.9,
       "latent_steps_k": 0,
       "flops_per_problem": 133153559408.64,
@@ -79,12 +79,12 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.0,
-      "n_eval": 24,
-      "mean_tokens_emitted": 5.6,
+      "accuracy": 0.005,
+      "n_eval": 200,
+      "mean_tokens_emitted": 5.5,
       "latent_steps_k": 4,
-      "flops_per_problem": 76804663459.84,
-      "kv_cache_kb": 9363.2
+      "flops_per_problem": 76683280896.0,
+      "kv_cache_kb": 9352.0
     },
     {
       "run_id": "gsm8k_qwen0.6b_latent_k8",
@@ -92,8 +92,8 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.0417,
-      "n_eval": 24,
+      "accuracy": 0.01,
+      "n_eval": 200,
       "mean_tokens_emitted": 5.0,
       "latent_steps_k": 8,
       "flops_per_problem": 79687693312.0,
@@ -105,8 +105,8 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "GSM8K",
-      "accuracy": 0.4167,
-      "n_eval": 24,
+      "accuracy": 0.445,
+      "n_eval": 200,
       "mean_tokens_emitted": 4.6,
       "latent_steps_k": 16,
       "flops_per_problem": 86429768048.64,
@@ -118,12 +118,12 @@
       "param_count_b": 0.6,
       "regime": "verbose_cot",
       "benchmark": "MATH",
-      "accuracy": 0.7083,
-      "n_eval": 24,
-      "mean_tokens_emitted": 120.6,
+      "accuracy": 0.8,
+      "n_eval": 150,
+      "mean_tokens_emitted": 119.5,
       "latent_steps_k": 0,
-      "flops_per_problem": 196850292695.04,
-      "kv_cache_kb": 19779.2
+      "flops_per_problem": 195504550400.0,
+      "kv_cache_kb": 19656.0
     },
     {
       "run_id": "math_qwen0.6b_telegraphic",
@@ -131,12 +131,12 @@
       "param_count_b": 0.6,
       "regime": "telegraphic_cot",
       "benchmark": "MATH",
-      "accuracy": 0.4167,
-      "n_eval": 24,
-      "mean_tokens_emitted": 59.4,
+      "accuracy": 0.3733,
+      "n_eval": 150,
+      "mean_tokens_emitted": 60.8,
       "latent_steps_k": 0,
-      "flops_per_problem": 122189003120.64,
-      "kv_cache_kb": 12924.8
+      "flops_per_problem": 123892140277.76,
+      "kv_cache_kb": 13081.6
     },
     {
       "run_id": "math_qwen0.6b_matched",
@@ -144,12 +144,12 @@
       "param_count_b": 0.6,
       "regime": "compute_matched",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "n_eval": 24,
-      "mean_tokens_emitted": 59.8,
+      "accuracy": 0.0067,
+      "n_eval": 150,
+      "mean_tokens_emitted": 61.7,
       "latent_steps_k": 0,
-      "flops_per_problem": 122675590799.36,
-      "kv_cache_kb": 12969.6
+      "flops_per_problem": 124987132866.56,
+      "kv_cache_kb": 13182.4
     },
     {
       "run_id": "math_qwen0.6b_latent_k6",
@@ -157,12 +157,12 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "n_eval": 24,
-      "mean_tokens_emitted": 5.2,
+      "accuracy": 0.0133,
+      "n_eval": 150,
+      "mean_tokens_emitted": 5.3,
       "latent_steps_k": 6,
-      "flops_per_problem": 61822527733.76,
-      "kv_cache_kb": 7526.4
+      "flops_per_problem": 61943620136.96,
+      "kv_cache_kb": 7537.6
     },
     {
       "run_id": "math_qwen0.6b_latent_k12",
@@ -170,8 +170,8 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.0,
-      "n_eval": 24,
+      "accuracy": 0.0067,
+      "n_eval": 150,
       "mean_tokens_emitted": 4.7,
       "latent_steps_k": 12,
       "flops_per_problem": 66617323458.56,
@@ -183,12 +183,12 @@
       "param_count_b": 0.6,
       "regime": "latent_loop",
       "benchmark": "MATH",
-      "accuracy": 0.1667,
-      "n_eval": 24,
-      "mean_tokens_emitted": 4.6,
+      "accuracy": 0.2,
+      "n_eval": 150,
+      "mean_tokens_emitted": 4.5,
       "latent_steps_k": 20,
-      "flops_per_problem": 73702820618.24,
-      "kv_cache_kb": 9027.2
+      "flops_per_problem": 73581575680.0,
+      "kv_cache_kb": 9016.0
     }
   ],
   "tee_trace": {
@@ -370,8 +370,8 @@
     "kv_kb_per_token": 112.0,
     "flops_per_token": 1200000000.0,
     "final_answer": "111",
-    "baseline_accuracy": 0.7917,
-    "telegraphic_accuracy": 0.5833,
+    "baseline_accuracy": 0.815,
+    "telegraphic_accuracy": 0.705,
     "tokens": [
       {
         "index": 0,
