@@ -58,11 +58,8 @@ if modal.is_local():
         )
         .add_local_dir(str(EXPERIMENTS_DIR / "src"), remote_path="/root/gitltyn/src")
         .add_local_dir(str(EXPERIMENTS_DIR / "configs"), remote_path="/root/gitltyn/configs")
+        .add_local_dir(str(EXPERIMENTS_DIR / "scripts"), remote_path="/root/gitltyn/scripts")
         .add_local_dir(str(ROOT_DIR / "shared"), remote_path="/root/gitltyn/shared")
-        .add_local_file(
-            str(EXPERIMENTS_DIR / "scripts" / "export_web_artifacts.py"),
-            remote_path="/root/gitltyn/scripts/export_web_artifacts.py",
-        )
     )
 else:
     ablation_image = modal.Image.debian_slim(python_version="3.11")
@@ -112,6 +109,7 @@ def run_gpu_ablation(
     sys.path.insert(0, "/root/gitltyn")
 
     from datasets import (
+        PROBE_STAGE_TEMPLATES,
         MicroMathTokenizer,
         build_gsm8k_examples,
         build_math_examples,
@@ -140,37 +138,50 @@ def run_gpu_ablation(
     scratch_telemetry = None
     if mode in ("hybrid", "scratch"):
         print("[Modal Remote] Running scratch verification...", flush=True)
-        # Scratch pretraining check
         torch.manual_seed(42)
-        cfg = Qwen3ModelConfig(
-            model_name="Qwen3-0.6B-ScratchMicro",
-            hidden_size=256,
-            intermediate_size=768,
-            num_layers=4,
-            num_attention_heads=4,
-            num_key_value_heads=2,
-            vocab_size=256,
-            max_position_embeddings=512,
+        gsm_train_micro = build_gsm8k_examples(18, seed=11)
+        micro_texts = [
+            f"{ex.prompt} {ex.verbose_cot} {ex.telegraphic_cot}"
+            for ex in gsm_train_micro
+        ]
+        micro_tok = MicroMathTokenizer(texts=micro_texts, max_vocab=256)
+        micro_cfg = Qwen3ModelConfig.micro_ablation(vocab_size=micro_tok.vocab_size)
+
+        micro_model = Qwen3CausalLM(micro_cfg).to(device=device, dtype=torch.float32)
+        pre_init_scratch, pre_final_scratch, _ = run_pretraining(
+            model=micro_model,
+            tokenizer=micro_tok,
+            train_examples=gsm_train_micro,
+            device=device,
+            mode="scratch",
+            steps=24,
+            batch_size=6,
+            lr=3e-3,
         )
-        micro_model = Qwen3CausalLM(cfg).to(device)
-        micro_adapter = TorchContinuousLatentAdapter(hidden_size=256).to(device)
-        micro_probe = TorchSidecarProbe(hidden_size=256, num_stages=6).to(device)
-        micro_tokenizer = MicroMathTokenizer(
-            ["1 + 1 = 2", "x = 4", "Natalia sold clips"], max_vocab=256
-        )
+        micro_adapter = TorchContinuousLatentAdapter(hidden_dim=micro_cfg.hidden_dim).to(device=device)
+        micro_probe = TorchSidecarProbe(
+            hidden_dim=micro_cfg.hidden_dim, templates=PROBE_STAGE_TEMPLATES
+        ).to(device=device)
         scratch_metrics = run_posttraining(
             model=micro_model,
             adapter=micro_adapter,
             probe=micro_probe,
-            tokenizer=micro_tokenizer,
-            train_examples=build_gsm8k_examples(12, seed=42),
+            tokenizer=micro_tok,
+            train_examples=gsm_train_micro,
             device=device,
-            sft_steps=12,
-            latent_steps=16,
-            probe_steps=12,
-            batch_size=4,
+            mode="scratch",
+            sft_steps=16,
+            latent_steps_train=16,
+            probe_steps=20,
+            recurrence_k=4,
+            ring_capacity_m=4,
+            sft_lr=2e-3,
+            adapter_lr=4e-3,
+            probe_lr=2e-2,
         )
         scratch_telemetry = {
+            "scratch_pretrain_initial_loss": round(pre_init_scratch, 4),
+            "scratch_pretrain_final_loss": round(pre_final_scratch, 4),
             "scratch_sft_final_loss": scratch_metrics.sft_final_loss,
             "scratch_latent_final_loss": scratch_metrics.latent_final_loss,
             "scratch_probe_final_loss": scratch_metrics.probe_final_loss,
@@ -194,15 +205,17 @@ def run_gpu_ablation(
         tokenizer = MicroMathTokenizer(texts=all_texts, max_vocab=512)
         cfg = Qwen3ModelConfig(
             model_name="Qwen3-0.6B",
-            hidden_size=1024,
-            intermediate_size=3072,
-            num_layers=16,
-            num_attention_heads=16,
-            num_key_value_heads=8,
-            vocab_size=max(512, len(tokenizer.vocab)),
-            max_position_embeddings=2048,
+            param_count_b=0.6,
+            vocab_size=tokenizer.vocab_size,
+            hidden_dim=256,
+            intermediate_dim=768,
+            num_layers=6,
+            num_attention_heads=8,
+            num_kv_heads=4,
+            head_dim=32,
         )
         model = Qwen3CausalLM(cfg).to(device=device, dtype=torch.float32)
+        train_mode = "scratch"
         unfreeze_layers = cfg.num_layers
     else:
         from transformers import AutoTokenizer
@@ -215,38 +228,35 @@ def run_gpu_ablation(
             device=device,
             dtype=dtype,
         )
+        train_mode = "continued"
         unfreeze_layers = 4
 
-    adapter = TorchContinuousLatentAdapter(hidden_size=model.config.hidden_size).to(
-        device=device, dtype=model.lm_head.weight.dtype
-    )
-    adapter.init_from_symbolic_subspace(
-        unembed_weight=model.lm_head.weight.data,
-        operator_token_ids=[
-            getattr(tokenizer, "encode")(op, add_special_tokens=False)[0]
-            for op in ("+", "-", "*", "/", "=", "^")
-            if getattr(tokenizer, "encode")(op, add_special_tokens=False)
-        ],
-    )
+    adapter = TorchContinuousLatentAdapter(
+        hidden_dim=model.config.hidden_dim,
+        rms_norm_eps=model.config.rms_norm_eps,
+    ).to(device=device, dtype=torch.float32)
     probe = TorchSidecarProbe(
-        hidden_size=model.config.hidden_size, num_stages=6
+        hidden_dim=model.config.hidden_dim,
+        templates=PROBE_STAGE_TEMPLATES,
+        rms_norm_eps=model.config.rms_norm_eps,
     ).to(device=device, dtype=torch.float32)
 
     # Stage 1: Pretraining
-    print("[Modal Remote] Stage 1: Domain-adaptive pretraining...", flush=True)
-    pretrain_initial, pretrain_final = run_pretraining(
+    print(f"[Modal Remote] Stage 1: Running {train_mode} causal LM pretraining ({pretrain_steps} steps)...", flush=True)
+    pre_init, pre_final, _ = run_pretraining(
         model=model,
         tokenizer=tokenizer,
         train_examples=train_pool,
         device=device,
+        mode=train_mode,
         steps=pretrain_steps,
         batch_size=8,
-        lr=3e-5,
-        unfreeze_last_n_layers=unfreeze_layers,
+        lr=8e-5 if train_mode == "continued" else 2e-3,
+        unfreeze_top_layers=unfreeze_layers,
     )
 
     # Stage 2: Post-Training
-    print("[Modal Remote] Stage 2: Multi-regime SFT + Latent recurrence...", flush=True)
+    print(f"[Modal Remote] Stage 2: Multi-regime SFT + Latent recurrence (SFT={sft_steps}, Latent={latent_steps}, Probe={probe_steps})...", flush=True)
     stage_metrics = run_posttraining(
         model=model,
         adapter=adapter,
@@ -254,15 +264,20 @@ def run_gpu_ablation(
         tokenizer=tokenizer,
         train_examples=train_pool,
         device=device,
+        mode=train_mode,
         sft_steps=sft_steps,
-        latent_steps=latent_steps,
+        latent_steps_train=latent_steps,
         probe_steps=probe_steps,
+        recurrence_k=6,
+        ring_capacity_m=6,
         batch_size=8,
-        sft_lr=2e-5,
-        adapter_lr=1e-4,
-        probe_lr=1e-3,
-        unfreeze_last_n_layers=unfreeze_layers,
+        sft_lr=9e-5 if train_mode == "continued" else 1.5e-3,
+        adapter_lr=2.5e-3,
+        probe_lr=2e-2,
+        unfreeze_top_layers=unfreeze_layers,
     )
+    stage_metrics.pretrain_initial_loss = round(pre_init, 4)
+    stage_metrics.pretrain_final_loss = round(pre_final, 4)
 
     # Stage 3: Evaluation
     print("[Modal Remote] Stage 3: 4-Regime Evaluation...", flush=True)
@@ -286,8 +301,8 @@ def run_gpu_ablation(
         "elapsed_seconds": elapsed_s,
         "scratch_verification": scratch_telemetry,
         "training_metrics": {
-            "pretrain_initial_loss": round(pretrain_initial, 4),
-            "pretrain_final_loss": round(pretrain_final, 4),
+            "pretrain_initial_loss": stage_metrics.pretrain_initial_loss,
+            "pretrain_final_loss": stage_metrics.pretrain_final_loss,
             "sft_initial_loss": stage_metrics.sft_initial_loss,
             "sft_final_loss": stage_metrics.sft_final_loss,
             "latent_initial_loss": stage_metrics.latent_initial_loss,
