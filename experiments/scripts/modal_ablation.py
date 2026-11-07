@@ -326,6 +326,10 @@ def main(
     eval_samples: int = 24,
     full_eval: bool = False,
     gpu: str = "",
+    pretrain_steps: int = 24,
+    sft_steps: int = 72,
+    latent_steps: int = 96,
+    probe_steps: int = 60,
 ):
     """Local CLI entrypoint invoking remote Modal GPU function."""
     import json
@@ -346,6 +350,10 @@ def main(
         train_samples=train_samples,
         eval_samples=eval_samples,
         full_eval=full_eval,
+        pretrain_steps=pretrain_steps,
+        sft_steps=sft_steps,
+        latent_steps=latent_steps,
+        probe_steps=probe_steps,
     )
 
     out_file = EXPERIMENTS_DIR / "artifacts" / "qwen3_0.6b_results.json"
