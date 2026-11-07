@@ -218,3 +218,54 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ==========================================
+# Web / Astro / pnpm / TypeScript
+# ==========================================
+node_modules/
+.pnpm-store/
+.astro/
+web/dist/
+web/.vercel/
+web/.netlify/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# ML Checkpoints, Raw Logs & Datasets
+# ==========================================
+# Ignore heavy model weights & tensors
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.gguf
+
+# Ignore raw evaluation outputs and experiment trackers
+# (Only schema-validated JSON exported to web/src/data/ should be tracked)
+experiments/outputs/
+experiments/checkpoints/
+experiments/data/raw/
+experiments/data/cache/
+wandb/
+runs/
+lightning_logs/
+outputs/
+multirun/
+
+# ==========================================
+# Agentic / Claude Code / Editor Local State
+# ==========================================
+# Keep .claude/settings.json and .claude/commands/ tracked,
+# but ignore machine-specific local overrides and session caches:
+.claude/settings.local.json
+.claude/*.local.md
+CLAUDE.local.md
+
+# OS / Editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~

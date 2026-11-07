@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(uv run pytest*)",
+      "Bash(uv run python scripts/export_web_artifacts.py*)"
+    ],
+    "deny": [
+      "Edit(web/src/data/**)",
+      "Write(web/src/data/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_FILE_PATH\" == *.tsx || \"$CLAUDE_FILE_PATH\" == *.ts || \"$CLAUDE_FILE_PATH\" == *.mdx ]]; then cd web && pnpm astro check; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

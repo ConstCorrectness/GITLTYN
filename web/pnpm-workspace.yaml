@@ -1,0 +1,6 @@
+packages:
+  - "."
+
+overrides:
+  "@emnapi/runtime": "^1.4.0"
+  "typescript": "^6.0.0"

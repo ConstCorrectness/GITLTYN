@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GITLTYNAblationArtifact",
+  "type": "object",
+  "required": ["generated_at", "runs", "tee_traces"],
+  "properties": {
+    "generated_at": { "type": "string", "format": "date-time" },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "run_id", "model_name", "param_count_b", "regime", "benchmark",
+          "accuracy", "accuracy_logit", "ci_95", "mean_tokens_emitted",
+          "latent_steps_k", "flops_per_problem", "kv_cache_kb", "is_pareto_frontier"
+        ],
+        "properties": {
+          "run_id": { "type": "string" },
+          "model_name": { "type": "string" },
+          "param_count_b": { "type": "number" },
+          "regime": {
+            "type": "string",
+            "enum": ["verbose_cot", "telegraphic_cot", "compute_matched", "latent_loop"]
+          },
+          "benchmark": { "type": "string" },
+          "accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+          "accuracy_logit": { "type": "number" },
+          "ci_95": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "mean_tokens_emitted": { "type": "number" },
+          "latent_steps_k": { "type": "integer" },
+          "flops_per_problem": { "type": "number" },
+          "kv_cache_kb": { "type": "number" },
+          "is_pareto_frontier": { "type": "boolean" }
+        }
+      }
+    },
+    "tee_traces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["problem_id", "prompt", "latent_steps", "final_answer"],
+        "properties": {
+          "problem_id": { "type": "string" },
+          "prompt": { "type": "string" },
+          "final_answer": { "type": "string" },
+          "latent_steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["step_k", "l2_norm", "logit_lens_top_k", "sidecar_decoded"],
+              "properties": {
+                "step_k": { "type": "integer" },
+                "l2_norm": { "type": "number" },
+                "logit_lens_top_k": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["token", "prob"],
+                    "properties": {
+                      "token": { "type": "string" },
+                      "prob": { "type": "number" }
+                    }
+                  }
+                },
+                "sidecar_decoded": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
